@@ -15,11 +15,11 @@ def search():
 def subscriptions():
     return render_template('subscriptions.html')
 
-@app.route('smartsearch')
+@app.route('/smartsearch')
 def smartsearch():
     return render_template('smartsearch.html')
 
-@app.route('smartsort')
+@app.route('/smartsort')
 def smartsort():
     return render_template('smartsort.html')
 
