@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Subscriptions</h1>
+  <ul class="list-group">
+    {% for podcast in subscriptions %}
+      <li class="list-group-item">{{podcast.title}}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -21,8 +21,6 @@ def subscriptions():
         # vars converts podcast object into dictionary
         subscription_podcast_objects.append(vars(podcast))
 
-    for podcast in subscription_podcast_objects:
-        print type(podcast)
-
+    return subscription_podcast_objects
 
 # subscriptions()

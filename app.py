@@ -1,7 +1,10 @@
 from flask import Flask, render_template
+from gpo import subscriptions
 
 app = Flask(__name__)
 app.debug = True
+
+subs = subscriptions()
 
 @app.route('/')
 def index():
@@ -13,7 +16,7 @@ def search():
 
 @app.route('/subscriptions')
 def subscriptions():
-    return render_template('subscriptions.html')
+    return render_template('subscriptions.html', subscriptions = subs)
 
 @app.route('/smartsearch')
 def smartsearch():
