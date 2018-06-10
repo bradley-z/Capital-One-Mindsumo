@@ -1,4 +1,6 @@
 from mygpoclient import simple, public
+import json
+
 
 def search(search_term):
     client = public.PublicClient()
@@ -15,7 +17,12 @@ def subscriptions():
     subscription_urls = client.get_subscriptions('legacy')
     subscription_podcast_objects = []
     for url in subscription_urls:
-        subscription_podcast_objects.append((search_client.search_podcasts(url))[0])
+        podcast = (search_client.search_podcasts(url))[0]
+        # vars converts podcast object into dictionary
+        subscription_podcast_objects.append(vars(podcast))
+
+    for podcast in subscription_podcast_objects:
+        print type(podcast)
 
 
-subscriptions()
+# subscriptions()
