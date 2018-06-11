@@ -22,6 +22,11 @@ def subscriptions_gpo():
 def smartsearch_gpo(search_tag, count):
     client = public.PublicClient()
 
+    # format search tag better
+    search_tag = search_tag.replace(" & ", "-")
+    search_tag = search_tag.replace("&", "-")
+    search_tag = search_tag.replace(" ", "-")
+
     '''
     get_podcasts_of_a_tag doens't really retrieve podcasts sorted by subscribers.
     this retrieves the max number of podcasts in the search, converts the objects
