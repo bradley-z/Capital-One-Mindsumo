@@ -22,13 +22,17 @@ def subscriptions_gpo():
 def smartsearch_gpo(search_tag, count):
     client = public.PublicClient()
 
+    '''
+    get_podcasts_of_a_tag doens't really retrieve podcasts sorted by subscribers.
+    this retrieves the max number of podcasts in the search, converts the objects
+    to dictionaries, sorts them, then only takes the first count podcasts and
+    returns them
+    '''
     search_results = client.get_podcasts_of_a_tag(search_tag, 100)
     search_results = [ vars(podcast) for podcast in search_results ]
-
     search_results = sorted(search_results, key=lambda k: k['subscribers'], reverse=True)
-
     search_results = search_results[0:count]
-    
+
     return search_results
 
-# smartsearch_gpo("tech", 10)
+smartsearch_gpo("tech", 10)
