@@ -1,5 +1,4 @@
 from mygpoclient import simple, public
-import json
 
 
 def search(search_term):
