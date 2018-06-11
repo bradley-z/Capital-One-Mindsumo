@@ -1,13 +1,13 @@
 from mygpoclient import simple, public
 
 
-def search(search_term):
+def search_gpo(search_term):
     client = public.PublicClient()
 
     search_results = client.search_podcasts(search_term)
     return search_results
 
-def subscriptions():
+def subscriptions_gpo():
     client = simple.SimpleClient('bradleyzhou','3qPB7~e>VR`/p?&S')
     public_client = public.PublicClient()
 

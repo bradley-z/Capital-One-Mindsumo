@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request
-from gpo import subscriptions
+from gpo import subscriptions_gpo, search_gpo
 
 app = Flask(__name__)
 app.debug = True
 
-subs = subscriptions()
+subs = subscriptions_gpo()
 searches = []
 
 @app.route('/')
@@ -13,6 +13,14 @@ def index():
 
 @app.route('/search')
 def search():
+    return render_template('search.html', searches = searches)
+
+@app.route('/search', methods=['POST'])
+def search_post():
+    text = request.form['text']
+    # processed_text = text.upper()
+    searches = search_gpo(text)
+    # print text
     return render_template('search.html', searches = searches)
 
 @app.route('/subscriptions')
