@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Search</h1>
+  <form class="navbar-form navbar-left" role="search" method="POST">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search genre" name="genre">
+    </div>
+    <div class="form-group">
+      <input type="number" class="form-control" min="0" value=25 name="count">
+    </div>
+    <button type="submit" class="btn btn-default">Search</button>
+  </form><br>
+  <br><br>
+  <div class="list-group">
+    {% for podcast in searches %}
+      <a href={{podcast.url}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+        <img src={{podcast.logo_url}} style="width:200px;height:200px">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{podcast.title}}</h5>
+          <small><font color="#cc0000">{{podcast.subscribers}} Subscribers</font></small><br>
+          <br>
+        </div>
+        <p class="mb-1">{{podcast.description}}</p>
+        <small>{{podcast.website}}</small>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}

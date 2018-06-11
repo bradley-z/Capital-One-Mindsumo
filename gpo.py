@@ -19,4 +19,14 @@ def subscriptions_gpo():
         subscription_podcast_objects.append(vars(podcast))
     return subscription_podcast_objects
 
-# subscriptions()
+def smartsearch_gpo(search_tag, count):
+    client = public.PublicClient()
+
+    search_results = client.get_podcasts_of_a_tag(search_tag, count)
+    search_results = [ vars(podcast) for podcast in search_results ]
+
+    search_results = sorted(search_results, key=lambda k: k['subscribers'], reverse=True) 
+    
+    return search_results
+
+# smartsearch_gpo("tech", 10)

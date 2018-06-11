@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request
-from gpo import subscriptions_gpo, search_gpo
+from gpo import subscriptions_gpo, search_gpo,smartsearch_gpo
 
 app = Flask(__name__)
 app.debug = True
 
 subs = subscriptions_gpo()
 searches = []
+smartsearches = []
 
 @app.route('/')
 def index():
@@ -15,13 +16,12 @@ def index():
 def search():
     return render_template('search.html', searches = searches)
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['POST', 'GET'])
 def search_post():
-    text = request.form['text']
-    # processed_text = text.upper()
-    searches = search_gpo(text)
-    # print text
-    return render_template('search.html', searches = searches)
+    if request.method == 'POST':
+        text = request.form['text']
+        searches = search_gpo(text)
+        return render_template('search.html', searches = searches)
 
 @app.route('/subscriptions')
 def subscriptions():
@@ -29,7 +29,15 @@ def subscriptions():
 
 @app.route('/smartsearch')
 def smartsearch():
-    return render_template('smartsearch.html')
+    return render_template('smartsearch.html', searches = smartsearches)
+
+@app.route('/smartsearch', methods=['POST', 'GET'])
+def smartsearch_post():
+    if request.method == 'POST':
+        text = request.form['genre']
+        count = request.form['count']
+        searches = smartsearch_gpo(text, int(count))
+        return render_template('smartsearch.html', searches = searches)
 
 @app.route('/smartsort')
 def smartsort():
