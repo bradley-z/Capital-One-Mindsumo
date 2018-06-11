@@ -12,15 +12,14 @@ def search(search_term):
 
 def subscriptions():
     client = simple.SimpleClient('bradleyzhou','3qPB7~e>VR`/p?&S')
-    search_client = public.PublicClient()
+    public_client = public.PublicClient()
 
     subscription_urls = client.get_subscriptions('legacy')
     subscription_podcast_objects = []
     for url in subscription_urls:
-        podcast = (search_client.search_podcasts(url))[0]
+        podcast = public_client.get_podcast_data(url)
         # vars converts podcast object into dictionary
         subscription_podcast_objects.append(vars(podcast))
-
     return subscription_podcast_objects
 
 # subscriptions()
