@@ -6,9 +6,7 @@ def search(search_term):
     client = public.PublicClient()
 
     search_results = client.search_podcasts(search_term)
-    # for result in search_results:
-    #     print result.url
-    #     print '-'*50
+    return search_results
 
 def subscriptions():
     client = simple.SimpleClient('bradleyzhou','3qPB7~e>VR`/p?&S')
