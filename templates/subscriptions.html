@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>Subscriptions</h1>
+  <h1>Subscriptions (click to go to podcast feed)</h1>
  <!--  <ul class="list-group">
     {% for podcast in subscriptions %}
       <li class="list-group-item">{{podcast.title}}</li>
@@ -10,15 +10,15 @@
   </ul> -->
   <div class="list-group">
     {% for podcast in subscriptions %}
-      <a href={{podcast.url}} target = "_blank" class="list-group-item list-group-item-action flex-column align-items-start">
-        <img src={{podcast.logo_url}}>
+      <a href={{podcast.url}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+        <img src={{podcast.logo_url}} style="width:200px;height:200px">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{podcast.title}}</h5>
           <small><font color="#cc0000">{{podcast.subscribers}} Subscribers</font></small><br>
           <br>
         </div>
         <p class="mb-1">{{podcast.description}}</p>
-        <small>{{podcast.url}}</small>
+        <small>{{podcast.website}}</small>
       </a>
     {% endfor %}
   </div>
