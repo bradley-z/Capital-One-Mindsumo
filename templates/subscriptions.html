@@ -1,13 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>Subscriptions (click to go to podcast feed)</h1>
- <!--  <ul class="list-group">
-    {% for podcast in subscriptions %}
-      <li class="list-group-item">{{podcast.title}}</li>
-      <li class="list-group-item">{{podcast.description}}</li>
-    {% endfor %}
-  </ul> -->
+  <h1>Subscriptions <small>(click to go to podcast feed)</small></h1>
   <div class="list-group">
     {% for podcast in subscriptions %}
       <a href={{podcast.url}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
