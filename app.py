@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo
+from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo
 
 app = Flask(__name__)
 app.debug = True
@@ -7,6 +7,7 @@ app.debug = True
 subs = subscriptions_gpo()
 searches = []
 smartsearches = []
+podcasts = []
 
 @app.route('/')
 def index():
@@ -34,14 +35,21 @@ def smartsearch():
 @app.route('/smartsearch', methods=['POST', 'GET'])
 def smartsearch_post():
     if request.method == 'POST':
-        text = request.form['genre']
+        genre = request.form['genre']
         count = request.form['count']
-        searches = smartsearch_gpo(text, int(count))
+        searches = smartsearch_gpo(genre, int(count))
         return render_template('smartsearch.html', searches = searches)
 
 @app.route('/smartsort')
 def smartsort():
     return render_template('smartsort.html')
+
+@app.route('/smartsort', methods=['POST', 'GET'])
+def smartsort_post():
+    if request.method == 'POST':
+        count = request.form['count']
+        podcasts = smartsort_gpo(int(count))
+        return render_template('smartsort.html', podcasts = podcasts)
 
 if __name__ == '__main__':
     app.run()
