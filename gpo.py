@@ -56,7 +56,7 @@ def smartsort_gpo():
     soup = BeautifulSoup(html_text, "html.parser")
 
     for line in soup.find_all("span", {"class": "released"}):
-        print line
+        print line.text.encode("ascii", "ignore")[1:-3]
 
     # print title
     # print html_text
