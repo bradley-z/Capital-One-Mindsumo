@@ -78,7 +78,6 @@ def calculate_average_days(dates):
     return total_days * 1.0 / count
 
 def get_average_release_time_per_subscription():
-    client = public.PublicClient()
     subscriptions = subscriptions_gpo()
 
     averages = []
@@ -110,15 +109,29 @@ def get_average_release_time_per_subscription():
         if first_dif <= (4 * average):
             total = average * (len(dates) - 1) + first_dif
             average = total / len(dates)
-        averages.append(average)
+        # checks if the podcast is ongoing
+        if days_difference(datetime.today(), dates[0]) > (4 * average):
+            averages.append((average, False))
+        else:
+            averages.append((average, True))
+        # averages.append(average)
 
+    for average in averages:
+        print average
     return averages
 
 # ----------------------------------------------------------------------------- #
 
 def smartsort_gpo():
-    return
+    client = public.PublicClient()
+    subscriptions = subscriptions_gpo()
+    titles = [ subscription["title"] for subscription in subscriptions ]
+    episode_counts = [ 408, 773, 407, 527, 5049, 501, 2406, 1878, 482, 1147, \
+                        2123, 6314, 793, 2507, 3152, 478, 473, 2377, 470, 138, \
+                        680, 504, 1511, 351, 1031 ]
+    # print len(episode_counts)
+
 
 # smartsearch_gpo("tech", 10)
-# smartsort_gpo()
+smartsort_gpo()
 # get_average_release_time_per_subscription()
