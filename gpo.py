@@ -110,11 +110,8 @@ def get_average_release_time_per_subscription():
         if first_dif <= (4 * average):
             total = average * (len(dates) - 1) + first_dif
             average = total / len(dates)
-        # checks if the podcast is ongoing
-        if days_difference(datetime.today(), dates[0]) > (4 * average):
-            averages.append((average, False))
-        else:
-            averages.append((average, True))
+        
+        averages.append(average)
 
     return averages
 
@@ -130,12 +127,21 @@ def create_json():
     episode_counts = [ 408, 773, 407, 527, 5049, 501, 2406, 1878, 482, 1147, \
                         2123, 6314, 793, 2507, 3152, 478, 473, 2377, 470, 138, \
                         680, 504, 1511, 351, 1031 ]
+    '''
+    for some reason, a bunch of podcasts on gPodder abruptly end at around
+    mid-february 2018 even though they are still ongoing. therefore, i manually
+    searched each podcast to see which ones were still ongoing
+    '''
+    continuing = [ True for i in range(25) ]
+    continuing[0] = False
+    continuing[18] = False
+    continuing[24] = False
     averages = get_average_release_time_per_subscription()
 
     dictionaries = []
-    keys = ["title", "episode count", "releases per day", "continuing", "days to finish"]
+    keys = ["title", "episode_count", "releases_per_day", "continuing", "days_to_finish"]
     for i in range(len(subscriptions)):
-        values = [titles[i], episode_counts[i], 1.0 / averages[i][0], averages[i][1], 0]
+        values = [titles[i], episode_counts[i], 1.0 / averages[i], continuing[i], 0]
         dictionary = dict(zip(keys,values))
         dictionaries.append(dictionary)
 
@@ -151,13 +157,18 @@ def smartsort_gpo(podcasts_per_day):
         '''
         rearrangement of the following equation:
         (episodes per day) * (num days) = (episodes released) + ((releases per day) * (num days))
+        if the podcast is completed, then (episodes per day) * (num days) = (episodes released)
         '''
-        days_to_catch_up = podcast["episode count"] / (podcasts_per_day - podcast["releases per day"])
-        podcast["days to finish"] = days_to_catch_up
+        if podcast["continuing"]:
+            days_to_catch_up = podcast["episode_count"] * 1.0 / (podcasts_per_day - podcast["releases_per_day"])
+        else:
+            days_to_catch_up = podcast["episode_count"] * 1.0 / podcasts_per_day
+        podcast["days_to_finish"] = days_to_catch_up
     
     # sort the list by having lowest days to finish first
-    podcasts = sorted(podcasts, key=lambda k: k['days to finish'])
+    podcasts = sorted(podcasts, key=lambda k: k['days_to_finish'])
     
     return podcasts
 
 # smartsort_gpo(10)
+# create_json()

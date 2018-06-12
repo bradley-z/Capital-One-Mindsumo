@@ -8,4 +8,27 @@
     </div>
     <button type="submit" class="btn btn-default">Calculate</button>
   </form>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Episodes Released</th>
+      <th scope="col">Ongoing</th>
+      <th scope="col">Days per episode</th>
+      <th scope="col">Days to catch up</th>
+    </tr>
+  </thead>
+  {% for podcast in podcasts %}
+  <tbody>
+    <tr>
+      <th scope="row">{{podcast.title}}</th>
+      <td>{{podcast.episode_count}}</td>
+      <td>{{podcast.continuing}}</td>
+      <td>{{1 / podcast.releases_per_day}}</td>
+      <th scope="col">{{podcast.days_to_finish}}</th>
+    </tr>
+  </tbody>
+  {% endfor %}
+</table>
+
 {% endblock %}

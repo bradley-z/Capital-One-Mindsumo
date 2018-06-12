@@ -1,177 +1,177 @@
 [  
    {  
-      "releases per day":0.10112359550561797,
-      "days to finish":0,
-      "episode count":408,
+      "days_to_finish":0,
       "continuing":false,
+      "releases_per_day":0.10112359550561797,
+      "episode_count":408,
       "title":"Linux Outlaws"
    },
    {  
-      "releases per day":0.08706166868198308,
-      "days to finish":0,
-      "episode count":773,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.08706166868198308,
+      "episode_count":773,
       "title":"This American Life"
    },
    {  
-      "releases per day":0.06430868167202572,
-      "days to finish":0,
-      "episode count":407,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.06430868167202572,
+      "episode_count":407,
       "title":"FLOSS Weekly (MP3)"
    },
    {  
-      "releases per day":0.027081922816519974,
-      "days to finish":0,
-      "episode count":527,
+      "days_to_finish":0,
       "continuing":true,
+      "releases_per_day":0.027081922816519974,
+      "episode_count":527,
       "title":"Friday Night Comedy from BBC Radio 4"
    },
    {  
-      "releases per day":0.6355555555555555,
-      "days to finish":0,
-      "episode count":5049,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.6355555555555555,
+      "episode_count":5049,
       "title":"TED Talks Daily (SD video)"
    },
    {  
-      "releases per day":0.09038413256339442,
-      "days to finish":0,
-      "episode count":501,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.09038413256339442,
+      "episode_count":501,
       "title":"This Week in Tech (MP3)"
    },
    {  
-      "releases per day":0.5940594059405939,
-      "days to finish":0,
-      "episode count":2406,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.5940594059405939,
+      "episode_count":2406,
       "title":"The Documentary"
    },
    {  
-      "releases per day":0.11664860960635608,
-      "days to finish":0,
-      "episode count":1878,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.11664860960635608,
+      "episode_count":1878,
       "title":"Radiolab"
    },
    {  
-      "releases per day":0.09081735620585268,
-      "days to finish":0,
-      "episode count":482,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.09081735620585268,
+      "episode_count":482,
       "title":"Security Now (MP3)"
    },
    {  
-      "releases per day":0.14285714285714285,
-      "days to finish":0,
-      "episode count":1147,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.14285714285714285,
+      "episode_count":1147,
       "title":"The Skeptics' Guide to the Universe"
    },
    {  
-      "releases per day":0.14644351464435146,
-      "days to finish":0,
-      "episode count":2123,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.14644351464435146,
+      "episode_count":2123,
       "title":"Science Friday"
    },
    {  
-      "releases per day":0.4316546762589928,
-      "days to finish":0,
-      "episode count":6314,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.4316546762589928,
+      "episode_count":6314,
       "title":"Stuff You Should Know"
    },
    {  
-      "releases per day":0.14285714285714285,
-      "days to finish":0,
-      "episode count":793,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.14285714285714285,
+      "episode_count":793,
       "title":"Wait Wait... Don't Tell Me!"
    },
    {  
-      "releases per day":0.1417881055533675,
-      "days to finish":0,
-      "episode count":2507,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.1417881055533675,
+      "episode_count":2507,
       "title":"The Naked Scientists Podcast"
    },
    {  
-      "releases per day":0.29357798165137616,
-      "days to finish":0,
-      "episode count":3152,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.29357798165137616,
+      "episode_count":3152,
       "title":"Planet Money"
    },
    {  
-      "releases per day":0.03303055326176713,
-      "days to finish":0,
-      "episode count":478,
+      "days_to_finish":0,
       "continuing":true,
+      "releases_per_day":0.03303055326176713,
+      "episode_count":478,
       "title":"Science in Action"
    },
    {  
-      "releases per day":0.09038413256339442,
-      "days to finish":0,
-      "episode count":473,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.09038413256339442,
+      "episode_count":473,
       "title":"This Week in Google (MP3)"
    },
    {  
-      "releases per day":0.6122448979591836,
-      "days to finish":0,
-      "episode count":2377,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.6122448979591836,
+      "episode_count":2377,
       "title":"Hacker Public Radio"
    },
    {  
-      "releases per day":0.15100514258999534,
-      "days to finish":0,
-      "episode count":470,
+      "days_to_finish":0,
       "continuing":false,
+      "releases_per_day":0.15100514258999534,
+      "episode_count":470,
       "title":"Engadget RSS Feed"
    },
    {  
-      "releases per day":0.006555764975825617,
-      "days to finish":0,
-      "episode count":138,
+      "days_to_finish":0,
       "continuing":true,
+      "releases_per_day":0.006555764975825617,
+      "episode_count":138,
       "title":"Dan Carlin's Hardcore History"
    },
    {  
-      "releases per day":0.1356954391255183,
-      "days to finish":0,
-      "episode count":680,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.1356954391255183,
+      "episode_count":680,
       "title":"In Our Time"
    },
    {  
-      "releases per day":0.017582417582417582,
-      "days to finish":0,
-      "episode count":504,
+      "days_to_finish":0,
       "continuing":true,
+      "releases_per_day":0.017582417582417582,
+      "episode_count":504,
       "title":"Car Talk"
    },
    {  
-      "releases per day":0.20236087689713322,
-      "days to finish":0,
-      "episode count":1511,
+      "days_to_finish":0,
       "continuing":true,
+      "releases_per_day":0.20236087689713322,
+      "episode_count":1511,
       "title":"Freakonomics Radio"
    },
    {  
-      "releases per day":0.062079668908432487,
-      "days to finish":0,
-      "episode count":351,
-      "continuing":false,
+      "days_to_finish":0,
+      "continuing":true,
+      "releases_per_day":0.062079668908432487,
+      "episode_count":351,
       "title":"Going Linux"
    },
    {  
-      "releases per day":0.14285714285714285,
-      "days to finish":0,
-      "episode count":1031,
+      "days_to_finish":0,
       "continuing":false,
+      "releases_per_day":0.14285714285714285,
+      "episode_count":1031,
       "title":"The Linux Action Show! MP3"
    }
 ]
