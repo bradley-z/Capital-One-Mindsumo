@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from gpo import subscriptions_gpo, search_gpo,smartsearch_gpo
+from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo
 
 app = Flask(__name__)
 app.debug = True

@@ -118,30 +118,46 @@ def get_average_release_time_per_subscription():
 
     return averages
 
-# ----------------------------------------------------------------------------- #
-
-def smartsort_gpo():
+def create_json():
     client = public.PublicClient()
     subscriptions = subscriptions_gpo()
     titles = [ subscription["title"] for subscription in subscriptions ]
+    '''
+    episode counts added manually since this data isn't available through api, i
+    can't even get it through GET request to the webpage since the webpage is
+    only available if i login
+    '''
     episode_counts = [ 408, 773, 407, 527, 5049, 501, 2406, 1878, 482, 1147, \
                         2123, 6314, 793, 2507, 3152, 478, 473, 2377, 470, 138, \
                         680, 504, 1511, 351, 1031 ]
     averages = get_average_release_time_per_subscription()
 
     dictionaries = []
-    keys = ["title", "episode count", "releases per day", "continuing"]
+    keys = ["title", "episode count", "releases per day", "continuing", "days to finish"]
     for i in range(len(subscriptions)):
-        values = [titles[i], episode_counts[i], 1.0 / averages[i][0], averages[i][1]]
+        values = [titles[i], episode_counts[i], 1.0 / averages[i][0], averages[i][1], 0]
         dictionary = dict(zip(keys,values))
         dictionaries.append(dictionary)
 
-
-
-    with open("subscription_data.json", "w") as fout:
+    with open("data/subscription_data.json", "w") as fout:
         json.dump(dictionaries, fout)
 
+# ----------------------------------------------------------------------------- #
 
-# smartsearch_gpo("tech", 10)
-smartsort_gpo()
-# get_average_release_time_per_subscription()
+def smartsort_gpo(podcasts_per_day):
+    with open("data/subscription_data.json") as f:
+        podcasts = json.load(f)
+    for podcast in podcasts:
+        '''
+        rearrangement of the following equation:
+        (episodes per day) * (num days) = (episodes released) + ((releases per day) * (num days))
+        '''
+        days_to_catch_up = podcast["episode count"] / (podcasts_per_day - podcast["releases per day"])
+        podcast["days to finish"] = days_to_catch_up
+    
+    # sort the list by having lowest days to finish first
+    podcasts = sorted(podcasts, key=lambda k: k['days to finish'])
+    
+    return podcasts
+
+# smartsort_gpo(10)
