@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>Subscriptions <small>(click to go to podcast feed)</small></h1>
+  <h1>Subscriptions</h1>
   <div class="list-group">
     {% for podcast in subscriptions %}
-      <a href={{podcast.url}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+      <a href={{podcast.website}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
         <img src={{podcast.logo_url}} style="width:200px;height:200px">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{podcast.title}}</h5>
