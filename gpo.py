@@ -169,6 +169,3 @@ def smartsort_gpo(podcasts_per_day):
     podcasts = sorted(podcasts, key=lambda k: k['days_to_finish'])
     
     return podcasts
-
-# smartsort_gpo(10)
-# create_json()
