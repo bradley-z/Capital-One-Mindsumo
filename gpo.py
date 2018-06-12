@@ -84,32 +84,34 @@ def smartsort_gpo():
     subscriptions = subscriptions_gpo()
 
     # change this to for subscription in subscriptions
-    url = subscriptions[10]["mygpo_link"]
-    req = requests.get(url)
-    html_text = req.text.encode("ascii", "ignore")
-    soup = BeautifulSoup(html_text, "html.parser")
+    for subscription in subscriptions:
+        url = subscription["mygpo_link"]
+        req = requests.get(url)
+        html_text = req.text.encode("ascii", "ignore")
+        soup = BeautifulSoup(html_text, "html.parser")
 
-    dates = []
-    for line in soup.find_all("span", {"class": "released"}):
-        dates.append(normalize_date(line.text.encode("ascii", "ignore")[4:-3]))
-    removed_duplicates = list(set(dates))
-    removed_duplicates.sort(key = dates.index)
-    dates = [] 
-    for date in removed_duplicates:
-        dates.append(datetime.strptime(date, "%m %d %Y"))
+        dates = []
+        for line in soup.find_all("span", {"class": "released"}):
+            dates.append(normalize_date(line.text.encode("ascii", "ignore")[4:-3]))
+        removed_duplicates = list(set(dates))
+        removed_duplicates.sort(key = dates.index)
+        dates = [] 
+        for date in removed_duplicates:
+            dates.append(datetime.strptime(date, "%m %d %Y"))
 
-    '''
-    disregard the first date for now because in some cases, it's some random post
-    that was posted a long time after the podcast ended. if the first date isn't
-    out of range, then recalculate the average now considering the first date
-    '''
-    average = calculate_average_days(dates[1:])
+        '''
+        disregard the first date for now because in some cases, it's some random post
+        that was posted a long time after the podcast ended. if the first date isn't
+        out of range, then recalculate the average now considering the first date
+        '''
+        average = calculate_average_days(dates[1:])
 
-    # refactor in first date
-    first_dif = days_difference(dates[0], dates[1])
-    if first_dif <= (4 * average):
-        total = average * (len(dates) - 1) + first_dif
-        average = total / len(dates)
+        # refactor in first date
+        first_dif = days_difference(dates[0], dates[1])
+        if first_dif <= (4 * average):
+            total = average * (len(dates) - 1) + first_dif
+            average = total / len(dates)
+        print average
 
     # print title
     # print html_text
