@@ -65,13 +65,26 @@ def normalize_date(date):
     date = date.replace(",", "")
     return date
 
+def days_difference(d1, d2):
+    return abs((d1 - d2).days)
+
+def calculate_average_days(dates):
+    count = 0
+    total_days = 0
+    for i in range(len(dates) - 1):
+        total_days += days_difference(dates[i], dates[i + 1])
+        count += 1
+
+    return total_days * 1.0 / count
+
 # ----------------------------------------------------------------------------- #
 
 def smartsort_gpo():
     client = public.PublicClient()
     subscriptions = subscriptions_gpo()
 
-    url = subscriptions[0]["mygpo_link"]
+    # change this to for subscription in subscriptions
+    url = subscriptions[10]["mygpo_link"]
     req = requests.get(url)
     html_text = req.text.encode("ascii", "ignore")
     soup = BeautifulSoup(html_text, "html.parser")
@@ -84,8 +97,19 @@ def smartsort_gpo():
     dates = [] 
     for date in removed_duplicates:
         dates.append(datetime.strptime(date, "%m %d %Y"))
-    for date in dates:
-        print date
+
+    '''
+    disregard the first date for now because in some cases, it's some random post
+    that was posted a long time after the podcast ended. if the first date isn't
+    out of range, then recalculate the average now considering the first date
+    '''
+    average = calculate_average_days(dates[1:])
+
+    # refactor in first date
+    first_dif = days_difference(dates[0], dates[1])
+    if first_dif <= (4 * average):
+        total = average * (len(dates) - 1) + first_dif
+        average = total / len(dates)
 
     # print title
     # print html_text
