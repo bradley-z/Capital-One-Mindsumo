@@ -1,4 +1,10 @@
 from mygpoclient import simple, public
+from bs4 import BeautifulSoup
+import requests
+
+username = 'bradleyzhou'
+password = '3qPB7~e>VR`/p?&S'
+deviceid = 'legacy'
 
 
 def search_gpo(search_term):
@@ -8,10 +14,10 @@ def search_gpo(search_term):
     return search_results
 
 def subscriptions_gpo():
-    client = simple.SimpleClient('bradleyzhou','3qPB7~e>VR`/p?&S')
+    client = simple.SimpleClient(username, password)
     public_client = public.PublicClient()
 
-    subscription_urls = client.get_subscriptions('legacy')
+    subscription_urls = client.get_subscriptions(deviceid)
     subscription_podcast_objects = []
     for url in subscription_urls:
         podcast = public_client.get_podcast_data(url)
@@ -40,4 +46,25 @@ def smartsearch_gpo(search_tag, count):
 
     return search_results
 
-smartsearch_gpo("tech", 10)
+def smartsort_gpo():
+    client = public.PublicClient()
+    subscriptions = subscriptions_gpo()
+
+    url = subscriptions[0]["mygpo_link"]
+    req = requests.get(url)
+    html_text = req.text.encode("ascii", "ignore")
+    soup = BeautifulSoup(html_text, "html.parser")
+
+    for line in soup.find_all("span", {"class": "released"}):
+        print line
+
+    # print title
+    # print html_text
+    # find all the instances of <span class="released">
+    # delete the first one if it's greater > year?
+    # remove duplicates
+    # also check if current date >= 4x average
+
+
+# smartsearch_gpo("tech", 10)
+smartsort_gpo()
