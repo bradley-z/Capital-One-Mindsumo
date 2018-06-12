@@ -1,5 +1,6 @@
 from mygpoclient import simple, public
 from bs4 import BeautifulSoup
+from datetime import datetime
 import requests
 
 username = 'bradleyzhou'
@@ -46,6 +47,26 @@ def smartsearch_gpo(search_tag, count):
 
     return search_results
 
+# ----------------------------------------------------------------------------- #
+
+def normalize_date(date):
+    date = date.replace("Jan.", "01")
+    date = date.replace("Feb.", "02")
+    date = date.replace("March", "03")
+    date = date.replace("April", "04")
+    date = date.replace("May", "05")
+    date = date.replace("June", "06")
+    date = date.replace("July", "07")
+    date = date.replace("Aug.", "08")
+    date = date.replace("Sept.", "09")
+    date = date.replace("Oct.", "10")
+    date = date.replace("Nov.", "11")
+    date = date.replace("Dec.", "12")
+    date = date.replace(",", "")
+    return date
+
+# ----------------------------------------------------------------------------- #
+
 def smartsort_gpo():
     client = public.PublicClient()
     subscriptions = subscriptions_gpo()
@@ -55,8 +76,16 @@ def smartsort_gpo():
     html_text = req.text.encode("ascii", "ignore")
     soup = BeautifulSoup(html_text, "html.parser")
 
+    dates = []
     for line in soup.find_all("span", {"class": "released"}):
-        print line.text.encode("ascii", "ignore")[1:-3]
+        dates.append(normalize_date(line.text.encode("ascii", "ignore")[4:-3]))
+    removed_duplicates = list(set(dates))
+    removed_duplicates.sort(key = dates.index)
+    dates = [] 
+    for date in removed_duplicates:
+        dates.append(datetime.strptime(date, "%m %d %Y"))
+    for date in dates:
+        print date
 
     # print title
     # print html_text
