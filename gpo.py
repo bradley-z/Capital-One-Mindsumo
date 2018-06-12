@@ -77,13 +77,12 @@ def calculate_average_days(dates):
 
     return total_days * 1.0 / count
 
-# ----------------------------------------------------------------------------- #
-
-def smartsort_gpo():
+def get_average_release_time_per_subscription():
     client = public.PublicClient()
     subscriptions = subscriptions_gpo()
 
-    # change this to for subscription in subscriptions
+    averages = []
+
     for subscription in subscriptions:
         url = subscription["mygpo_link"]
         req = requests.get(url)
@@ -111,15 +110,15 @@ def smartsort_gpo():
         if first_dif <= (4 * average):
             total = average * (len(dates) - 1) + first_dif
             average = total / len(dates)
-        print average
+        averages.append(average)
 
-    # print title
-    # print html_text
-    # find all the instances of <span class="released">
-    # delete the first one if it's greater > year?
-    # remove duplicates
-    # also check if current date >= 4x average
+    return averages
 
+# ----------------------------------------------------------------------------- #
+
+def smartsort_gpo():
+    return
 
 # smartsearch_gpo("tech", 10)
-smartsort_gpo()
+# smartsort_gpo()
+# get_average_release_time_per_subscription()
