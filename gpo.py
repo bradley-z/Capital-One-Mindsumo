@@ -2,6 +2,7 @@ from mygpoclient import simple, public
 from bs4 import BeautifulSoup
 from datetime import datetime
 import requests
+import json
 
 username = 'bradleyzhou'
 password = '3qPB7~e>VR`/p?&S'
@@ -114,10 +115,7 @@ def get_average_release_time_per_subscription():
             averages.append((average, False))
         else:
             averages.append((average, True))
-        # averages.append(average)
 
-    for average in averages:
-        print average
     return averages
 
 # ----------------------------------------------------------------------------- #
@@ -129,7 +127,19 @@ def smartsort_gpo():
     episode_counts = [ 408, 773, 407, 527, 5049, 501, 2406, 1878, 482, 1147, \
                         2123, 6314, 793, 2507, 3152, 478, 473, 2377, 470, 138, \
                         680, 504, 1511, 351, 1031 ]
-    # print len(episode_counts)
+    averages = get_average_release_time_per_subscription()
+
+    dictionaries = []
+    keys = ["title", "episode count", "releases per day", "continuing"]
+    for i in range(len(subscriptions)):
+        values = [titles[i], episode_counts[i], 1.0 / averages[i][0], averages[i][1]]
+        dictionary = dict(zip(keys,values))
+        dictionaries.append(dictionary)
+
+
+
+    with open("subscription_data.json", "w") as fout:
+        json.dump(dictionaries, fout)
 
 
 # smartsearch_gpo("tech", 10)
