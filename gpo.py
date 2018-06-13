@@ -206,8 +206,8 @@ def get_object(title):
     search_results = client.search_podcasts(title)
     if len(search_results) == 0:
         return None
-    count = 0
     else:
+        count = 0
         for result in search_results:
             count += 1
             if result.title == title:
