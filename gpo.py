@@ -180,6 +180,7 @@ def smartsort_gpo(podcasts_per_day):
 #                    Helper functions for recommendations                       #
 # ----------------------------------------------------------------------------- #
 
+# creates first url
 def create_url(podcast):
     base_url = "http://www.thesauropod.us/check_input?podcast_name="
     title = podcast["title"]
@@ -187,6 +188,7 @@ def create_url(podcast):
     url = base_url + urllib.quote_plus(title)
     return url
 
+# gets all hrefs on the first webpage to find the link to the second
 def get_links(url):
     req = requests.get(url)
     html_text = req.text.encode("ascii", "ignore")
@@ -197,8 +199,9 @@ def get_links(url):
     links = [ link["href"] for link in links ]
     return links
 
-# passing in list of subscriptions so as not to recommend something subscribed to
+# extracts recommendation titles and similarities from second url
 def get_recommendation_titles(url, subscriptions):
+    # passing in list of subscriptions so as not to recommend something subscribed to
     subscription_titles = [ subscription["title"] for subscription in subscriptions ]
 
     req = requests.get(url)
@@ -225,6 +228,24 @@ def get_recommendation_titles(url, subscriptions):
 
     return final_recommendations
 
+'''
+takes in a list of tuples with (podcast name, similarity) and returns a list
+of podcast objects and a list of similarities
+'''
+def get_objects(recs):
+    client = public.PublicClient()
+
+    objects = []
+    similarities = []
+    for rec in recs:
+        print rec
+        search_results = client.search_podcasts(rec[0])
+        print search_results
+        objects.append(search_results[0])
+        similarity_percent = round(rec[1] * 100, 2)
+        similarities.append(similarity_percent)
+    return objects, similarities
+
 # ----------------------------------------------------------------------------- #
 
 def recommend_gpo():
@@ -239,8 +260,12 @@ def recommend_gpo():
     # the link wanted is always the last href
     url_two = "http://www.thesauropod.us" + links[len(links) - 1]
 
-    final_recs = get_recommendation_titles(url_two, subscriptions)
-    print final_recs
+    recs = get_recommendation_titles(url_two, subscriptions)
 
-# get_recommendation_titles("http://www.thesauropod.us/output?id=18527")
+    final_recs, final_similarities = get_objects(recs)
+
+    for i in range(len(final_recs)):
+        print final_recs[i], final_similarities[i]
+        print "-"*50
+
 recommend_gpo()
