@@ -199,15 +199,22 @@ def get_links(url):
     links = [ link["href"] for link in links ]
     return links
 
-# searches the title and returns first result if it exists, else return None
+# searches the title and returns title if it exists, else return None
 def get_object(title):
     client = public.PublicClient()
 
     search_results = client.search_podcasts(title)
     if len(search_results) == 0:
         return None
+    count = 0
     else:
-        return search_results[0]
+        for result in search_results:
+            count += 1
+            if result.title == title:
+                return result
+            if count > 25:
+                return None
+    return None
 
 # extracts recommendation titles and similarities from second url
 def get_final_recommendations(podcast, url, subscriptions):
@@ -239,7 +246,8 @@ def get_final_recommendations(podcast, url, subscriptions):
             podcast_object = get_object(title)
 
             if podcast_object is None or podcast_object.title == podcast["title"] \
-                                or podcast_object in final_recommendations:
+                            or podcast_object.title in subscription_titles or \
+                                        podcast_object in final_recommendations:
                 continue
             else:
                 final_recommendations.append(podcast_object)
