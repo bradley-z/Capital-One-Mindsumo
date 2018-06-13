@@ -8,7 +8,7 @@ subs = subscriptions_gpo()
 searches = []
 smartsearches = []
 podcasts = []
-recommendations, similarities = recommend_gpo()
+podcast, recommendations, similarities = recommend_gpo()
 
 @app.route('/')
 def index():
@@ -54,7 +54,8 @@ def smartsort_post():
 
 @app.route('/recommendations')
 def recommend():
-    return render_template('recommendations.html', podcast = podcast, recommendations = recommendations)
+    return render_template('recommendations.html', podcast = podcast, \
+                recommendations = recommendations, similarities = similarities)
 
 if __name__ == '__main__':
     app.run()

@@ -250,6 +250,7 @@ def get_final_recommendations(url, subscriptions):
 def recommend_gpo():
     subscriptions = subscriptions_gpo()
     links = []
+    podcast = None
     # there are 4 hrefs on the page if the podcast exists in the database
     while len(links) != 4:
         podcast_index = random.randint(0, len(subscriptions) - 1)
@@ -260,5 +261,4 @@ def recommend_gpo():
     url_two = "http://www.thesauropod.us" + links[len(links) - 1]
 
     final_recs, final_similarities = get_final_recommendations(url_two, subscriptions)
-
-# recommend_gpo()
+    return podcast, final_recs, final_similarities
