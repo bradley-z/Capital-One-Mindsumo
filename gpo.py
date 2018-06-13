@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import requests
 import json
+import urllib
+import random
 
 username = 'bradleyzhou'
 password = '3qPB7~e>VR`/p?&S'
@@ -48,6 +50,8 @@ def smartsearch_gpo(search_tag, count):
 
     return search_results
 
+# ----------------------------------------------------------------------------- #
+#                       Helper functions for smart sort                         #
 # ----------------------------------------------------------------------------- #
 
 def normalize_date(date):
@@ -169,3 +173,19 @@ def smartsort_gpo(podcasts_per_day):
     podcasts = sorted(podcasts, key=lambda k: k['days_to_finish'])
     
     return podcasts
+
+# ----------------------------------------------------------------------------- #
+#                    Helper functions for recommendations                       #
+# ----------------------------------------------------------------------------- #
+
+def create_url(podcast):
+    base_url = "http://www.thesauropod.us/check_input?podcast_name="
+    title = podcast["title"]
+    # replace all special characters with encodings
+    url = base_url + urllib.quote_plus(title)
+    return url
+
+# ----------------------------------------------------------------------------- #
+
+def recommend_gpo():
+

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo
+from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, recommend_gpo
 
 app = Flask(__name__)
 # app.debug = True
@@ -50,6 +50,10 @@ def smartsort_post():
         count = request.form['count']
         podcasts = smartsort_gpo(int(count))
         return render_template('smartsort.html', podcasts = podcasts)
+
+@app.route('/recommend')
+def recommendation():
+    return render_template('recommend.html', recommendations = recommendations)
 
 if __name__ == '__main__':
     app.run()
