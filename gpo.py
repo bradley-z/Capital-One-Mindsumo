@@ -210,7 +210,7 @@ def get_object(title):
         return search_results[0]
 
 # extracts recommendation titles and similarities from second url
-def get_final_recommendations(url, subscriptions):
+def get_final_recommendations(podcast, url, subscriptions):
     # passing in list of subscriptions so as not to recommend something subscribed to
     subscription_titles = [ subscription["title"] for subscription in subscriptions ]
 
@@ -238,7 +238,10 @@ def get_final_recommendations(url, subscriptions):
         else:
             podcast_object = get_object(title)
 
-            if podcast_object is not None:
+            if podcast_object is None or podcast_object.title == podcast["title"] \
+                                or podcast_object in final_recommendations:
+                continue
+            else:
                 final_recommendations.append(podcast_object)
                 final_similarities.append(similarity)
 
@@ -260,5 +263,9 @@ def recommend_gpo():
     # the link wanted is always the last href
     url_two = "http://www.thesauropod.us" + links[len(links) - 1]
 
-    final_recs, final_similarities = get_final_recommendations(url_two, subscriptions)
-    return podcast, final_recs, final_similarities
+    final_recs = []
+    recs, similarities = get_final_recommendations(podcast, url_two, subscriptions)
+    for i in range(len(recs)):
+        final_recs.append((recs[i], similarities[i]))
+
+    return podcast, final_recs

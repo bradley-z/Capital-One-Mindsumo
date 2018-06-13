@@ -2,13 +2,13 @@ from flask import Flask, render_template, request
 from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, recommend_gpo
 
 app = Flask(__name__)
-# app.debug = True
+app.debug = True
 
 subs = subscriptions_gpo()
 searches = []
 smartsearches = []
 podcasts = []
-podcast, recommendations, similarities = recommend_gpo()
+podcast, recommendations = recommend_gpo()
 
 @app.route('/')
 def index():
@@ -38,8 +38,8 @@ def smartsearch_post():
     if request.method == 'POST':
         genre = request.form['genre']
         count = request.form['count']
-        searches = smartsearch_gpo(genre, int(count))
-        return render_template('smartsearch.html', searches = searches)
+        searches_post = smartsearch_gpo(genre, int(count))
+        return render_template('smartsearch.html', searches = searches_post)
 
 @app.route('/smartsort')
 def smartsort():
@@ -55,7 +55,7 @@ def smartsort_post():
 @app.route('/recommendations')
 def recommend():
     return render_template('recommendations.html', podcast = podcast, \
-                recommendations = recommendations, similarities = similarities)
+                recommendations = recommendations)
 
 if __name__ == '__main__':
     app.run()

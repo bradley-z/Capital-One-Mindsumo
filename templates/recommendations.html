@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Recommendations</h1>
+  <br>
+  <h3>Because you like...</h3>
+  <div class="list-group">
+    <a href={{podcast.website}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+      <img src={{podcast.logo_url}} style="width:200px;height:200px">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{podcast.title}}</h5>
+        <small><font color="#cc0000">{{podcast.subscribers}} Subscribers</font></small><br>
+        <br>
+      </div>
+      <p class="mb-1">{{podcast.description}}</p>
+      <small>{{podcast.website}}</small>
+    </a>
+  </div>
+  <h3>You should listen to...</h3>
+  <div class="list-group">
+    {% for rec in recommendations %}
+      <a href={{rec[0].website}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+        <img src={{rec[0].logo_url}} style="width:200px;height:200px">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{rec[0].title}}</h5>
+          <font color="#23bc30">{{rec[1]}}% Similar</font><br>
+          <small><font color="#cc0000">{{rec[0].subscribers}} Subscribers</font></small><br>
+          <br>
+        </div>
+        <p class="mb-1">{{rec[0].description}}</p>
+        <small>{{rec[0].website}}</small>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}
