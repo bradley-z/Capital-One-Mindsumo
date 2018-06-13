@@ -10,16 +10,18 @@
   <br>
   <h3>Because you like...</h3>
   <div class="list-group">
-    <a href={{podcast.website}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
-      <img src={{podcast.logo_url}} style="width:200px;height:200px">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{podcast.title}}</h5>
-        <small><font color="#cc0000">{{podcast.subscribers}} Subscribers</font></small><br>
-        <br>
-      </div>
-      <p class="mb-1">{{podcast.description}}</p>
-      <small>{{podcast.website}}</small>
-    </a>
+    {% for podcast in podcasts %}
+      <a href={{podcast.website}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+        <img src={{podcast.logo_url}} style="width:200px;height:200px">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{podcast.title}}</h5>
+          <small><font color="#cc0000">{{podcast.subscribers}} Subscribers</font></small><br>
+          <br>
+        </div>
+        <p class="mb-1">{{podcast.description}}</p>
+        <small>{{podcast.website}}</small>
+      </a>
+    {% endfor %}
   </div>
   <h3>You should listen to...</h3>
   <div class="list-group">

@@ -276,4 +276,4 @@ def recommend_gpo():
     for i in range(len(recs)):
         final_recs.append((recs[i], similarities[i]))
 
-    return podcast, final_recs
+    return [podcast], final_recs
