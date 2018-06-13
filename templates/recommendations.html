@@ -3,6 +3,11 @@
 {% block body %}
   <h1>Recommendations</h1>
   <br>
+  <form class="navbar-form navbar-left" role="search" method="POST">
+    <button type="submit" class="btn btn-primary">I want more!</button>
+  </form>
+  <br>
+  <br>
   <h3>Because you like...</h3>
   <div class="list-group">
     <a href={{podcast.website}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">

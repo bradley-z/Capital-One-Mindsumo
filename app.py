@@ -57,5 +57,11 @@ def recommend():
     return render_template('recommendations.html', podcast = podcast, \
                 recommendations = recommendations)
 
+@app.route('/recommendations', methods=['POST', 'GET'])
+def recommend_post():
+    podcast, recommendations = recommend_gpo()
+    return render_template('recommendations.html', podcast = podcast, \
+                recommendations = recommendations)
+
 if __name__ == '__main__':
     app.run()
