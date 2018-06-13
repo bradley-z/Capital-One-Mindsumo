@@ -199,8 +199,18 @@ def get_links(url):
     links = [ link["href"] for link in links ]
     return links
 
+# searches the title and returns first result if it exists, else return None
+def get_object(title):
+    client = public.PublicClient()
+
+    search_results = client.search_podcasts(title)
+    if len(search_results) == 0:
+        return None
+    else:
+        return search_results[0]
+
 # extracts recommendation titles and similarities from second url
-def get_recommendation_titles(url, subscriptions):
+def get_final_recommendations(url, subscriptions):
     # passing in list of subscriptions so as not to recommend something subscribed to
     subscription_titles = [ subscription["title"] for subscription in subscriptions ]
 
@@ -210,6 +220,7 @@ def get_recommendation_titles(url, subscriptions):
     recs = soup.find_all('tr', id=True)
 
     final_recommendations = []
+    final_similarities = []
 
     rec_count = 0
     while(len(final_recommendations) < REC_COUNT):
@@ -217,6 +228,7 @@ def get_recommendation_titles(url, subscriptions):
         rec_count += 1
 
         similarity = float(rec.find("input")["value"])
+        similarity = round(similarity * 100, 2)
 
         title_line = rec.find_all('td')[2]
         title = title_line.text
@@ -224,27 +236,14 @@ def get_recommendation_titles(url, subscriptions):
         if title in subscription_titles:
             continue
         else:
-            final_recommendations.append((title, similarity))
+            podcast_object = get_object(title)
 
-    return final_recommendations
+            if podcast_object is not None:
+                final_recommendations.append(podcast_object)
+                final_similarities.append(similarity)
 
-'''
-takes in a list of tuples with (podcast name, similarity) and returns a list
-of podcast objects and a list of similarities
-'''
-def get_objects(recs):
-    client = public.PublicClient()
+    return final_recommendations, final_similarities
 
-    objects = []
-    similarities = []
-    for rec in recs:
-        print rec
-        search_results = client.search_podcasts(rec[0])
-        print search_results
-        objects.append(search_results[0])
-        similarity_percent = round(rec[1] * 100, 2)
-        similarities.append(similarity_percent)
-    return objects, similarities
 
 # ----------------------------------------------------------------------------- #
 
@@ -260,12 +259,6 @@ def recommend_gpo():
     # the link wanted is always the last href
     url_two = "http://www.thesauropod.us" + links[len(links) - 1]
 
-    recs = get_recommendation_titles(url_two, subscriptions)
+    final_recs, final_similarities = get_final_recommendations(url_two, subscriptions)
 
-    final_recs, final_similarities = get_objects(recs)
-
-    for i in range(len(final_recs)):
-        print final_recs[i], final_similarities[i]
-        print "-"*50
-
-recommend_gpo()
+# recommend_gpo()
