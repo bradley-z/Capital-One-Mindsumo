@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, recommend_gpo
 
 app = Flask(__name__)
-app.debug = True
+# app.debug = True
 
 subs = subscriptions_gpo()
 searches = []
