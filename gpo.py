@@ -185,7 +185,29 @@ def create_url(podcast):
     url = base_url + urllib.quote_plus(title)
     return url
 
+def get_links(url):
+    req = requests.get(url)
+    html_text = req.text.encode("ascii", "ignore")
+    soup = BeautifulSoup(html_text, "html.parser")
+
+    links = soup.find_all('a', href=True)
+    # extract just the links
+    links = [ link["href"] for link in links ]
+    return links
+
 # ----------------------------------------------------------------------------- #
 
 def recommend_gpo():
+    subscriptions = subscriptions_gpo()
+    links = []
+    # there are 4 hrefs on the page if the podcast exists in the database
+    while len(links) != 4:
+        podcast_index = random.randint(0, len(subscriptions) - 1)
+        podcast = subscriptions[podcast_index]
+        url_one = create_url(podcast)
+        links = get_links(url_one)
+    # the link is always the last href
+    url_two = "http://www.thesauropod.us" + links[len(links) - 1]
 
+
+recommend_gpo()

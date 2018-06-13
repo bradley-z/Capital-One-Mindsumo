@@ -53,7 +53,7 @@ def smartsort_post():
 
 @app.route('/recommend')
 def recommendation():
-    return render_template('recommend.html', recommendations = recommendations)
+    return render_template('recommend.html', podcast = podcast, recommendations = recommendations)
 
 if __name__ == '__main__':
     app.run()
