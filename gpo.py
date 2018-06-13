@@ -10,6 +10,8 @@ username = 'bradleyzhou'
 password = '3qPB7~e>VR`/p?&S'
 deviceid = 'legacy'
 
+REC_COUNT = 3
+
 
 def search_gpo(search_term):
     client = public.PublicClient()
@@ -195,6 +197,34 @@ def get_links(url):
     links = [ link["href"] for link in links ]
     return links
 
+# passing in list of subscriptions so as not to recommend something subscribed to
+def get_recommendation_titles(url, subscriptions):
+    subscription_titles = [ subscription["title"] for subscription in subscriptions ]
+
+    req = requests.get(url)
+    html_text = req.text.encode("ascii", "ignore")
+    soup = BeautifulSoup(html_text, "html.parser")
+    recs = soup.find_all('tr', id=True)
+
+    final_recommendations = []
+
+    rec_count = 0
+    while(len(final_recommendations) < REC_COUNT):
+        rec = recs[rec_count]
+        rec_count += 1
+
+        similarity = float(rec.find("input")["value"])
+
+        title_line = rec.find_all('td')[2]
+        title = title_line.text
+
+        if title in subscription_titles:
+            continue
+        else:
+            final_recommendations.append((title, similarity))
+
+    return final_recommendations
+
 # ----------------------------------------------------------------------------- #
 
 def recommend_gpo():
@@ -206,8 +236,11 @@ def recommend_gpo():
         podcast = subscriptions[podcast_index]
         url_one = create_url(podcast)
         links = get_links(url_one)
-    # the link is always the last href
+    # the link wanted is always the last href
     url_two = "http://www.thesauropod.us" + links[len(links) - 1]
 
+    final_recs = get_recommendation_titles(url_two, subscriptions)
+    print final_recs
 
+# get_recommendation_titles("http://www.thesauropod.us/output?id=18527")
 recommend_gpo()
