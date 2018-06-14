@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, recommend_gpo, visualize_gpo
 
 app = Flask(__name__)
-# app.debug = True
+app.debug = True
 
 subs = subscriptions_gpo()
 searches = []
@@ -66,7 +66,10 @@ def recommend_post():
 
 @app.route('/visualization', methods=['GET'])
 def visualization():
+    # return render_template('visualization.html')
     return visualize_gpo(subs)
 
+    # return render_template('visualization.html', word_freqs=freqs, max_freq=max_freq)
+
 if __name__ == '__main__':
-    app.run()
+    app.run(threaded=True)

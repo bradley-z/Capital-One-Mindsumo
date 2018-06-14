@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+from collections import Counter
+import nltk
 import requests
 import json
 import urllib
@@ -246,6 +248,7 @@ def get_final_recommendations(podcast, url, subscriptions):
         if title in subscription_titles:
             continue
         else:
+            # this is the limiting function, could improve speed by finding different way to do this
             podcast_object = get_object(title)
 
             # just make sure no repeats or subscriptions, since get_object CAN return something different
@@ -281,12 +284,26 @@ def recommend_gpo(subscriptions):
 
     return [podcast], final_recs
 
+# returns top 100 podcasts in dictionary form
+def get_top():
+    client = public.PublicClient()
+    tops = client.get_toplist(100)
+    tops = [ vars(podcast) for podcast in tops ]
+    return tops
+
 def visualize_gpo(subscriptions):
     descriptions = ""
+    # subscriptions = get_top()
+    nltk.download('punkt')
+    nltk.download('stopwords')
     for subscription in subscriptions:
+        descriptions = descriptions + subscription["title"] + " "
         descriptions = descriptions + subscription["description"] + " "
     words = word_tokenize(descriptions)
     stop_words = set(stopwords.words("english"))
     words = [ word for word in words if len(word) > 3 and word not in stop_words ]
-    return words
+    frequencies = Counter(words)
+    freqs_json = [{'text': word, 'size': count} for word, count in frequencies.items()]
+    return json.dumps(freqs_json)
+    # return freqs_json, max_freq
     
