@@ -12,7 +12,7 @@
   <div class="list-group">
     {% for podcast in podcasts %}
       <a href={{podcast.website}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
-        <img src={{podcast.logo_url}} style="width:200px;height:200px">
+        <img src={{podcast.logo_url}} style="width:150px;height:150px">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{podcast.title}}</h5>
           <small><font color="#cc0000">{{podcast.subscribers}} Subscribers</font></small><br>
@@ -27,7 +27,7 @@
   <div class="list-group">
     {% for rec in recommendations %}
       <a href={{rec[0].website}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
-        <img src={{rec[0].logo_url}} style="width:200px;height:200px">
+        <img src={{rec[0].logo_url}} style="width:150px;height:150px">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{rec[0].title}}</h5>
           <font color="#23bc30">{{rec[1]}}% Similar</font><br>

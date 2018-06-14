@@ -10,7 +10,7 @@ username = 'bradleyzhou'
 password = '3qPB7~e>VR`/p?&S'
 deviceid = 'legacy'
 
-REC_COUNT = 3
+REC_MAX = 3
 
 
 def search_gpo(search_term):
@@ -230,7 +230,7 @@ def get_final_recommendations(podcast, url, subscriptions):
     final_similarities = []
 
     rec_count = 0
-    while(len(final_recommendations) < REC_COUNT):
+    while(len(final_recommendations) < REC_MAX):
         rec = recs[rec_count]
         rec_count += 1
 
@@ -240,11 +240,13 @@ def get_final_recommendations(podcast, url, subscriptions):
         title_line = rec.find_all('td')[2]
         title = title_line.text
 
+        # don't want to include recommendations already subscribed to
         if title in subscription_titles:
             continue
         else:
             podcast_object = get_object(title)
 
+            # just make sure no repeats or subscriptions, since get_object CAN return something different
             if podcast_object is None or podcast_object.title == podcast["title"] \
                             or podcast_object.title in subscription_titles or \
                                         podcast_object in final_recommendations:
