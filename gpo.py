@@ -258,10 +258,9 @@ def get_final_recommendations(podcast, url, subscriptions):
     return final_recommendations, final_similarities
 
 
-# ----------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------- #
 
-def recommend_gpo():
-    subscriptions = subscriptions_gpo()
+def recommend_gpo(subscriptions):
     links = []
     podcast = None
     # there are 4 hrefs on the page if the podcast exists in the database
@@ -280,6 +279,10 @@ def recommend_gpo():
 
     return [podcast], final_recs
 
-def visualize():
-    subscriptions = subscriptions_gpo()
+def visualize_gpo(subscriptions):
+    descriptions = ""
+    for subscription in subscriptions:
+        descriptions = descriptions + subscription["description"] + " "
+    return descriptions
+
     
