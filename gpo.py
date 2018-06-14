@@ -2,6 +2,7 @@ from mygpoclient import simple, public
 from bs4 import BeautifulSoup
 from datetime import datetime
 from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 import requests
 import json
 import urllib
@@ -285,5 +286,7 @@ def visualize_gpo(subscriptions):
     for subscription in subscriptions:
         descriptions = descriptions + subscription["description"] + " "
     words = word_tokenize(descriptions)
+    stop_words = set(stopwords.words("english"))
+    words = [ word for word in words if len(word) > 3 and word not in stop_words ]
     return words
     
