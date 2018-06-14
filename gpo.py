@@ -293,7 +293,7 @@ def visualize_gpo(subscriptions):
     for subscription in subscriptions:
         descriptions = descriptions + subscription["title"] + " "
         descriptions = descriptions + subscription["description"] + " "
-    wc = WordCloud().generate(descriptions)
+    wc = WordCloud(width=1200, height=800).generate(descriptions)
     image = wc.to_image()
-    image.save("data/word_freqs.png", "PNG")
+    image.save("static/frequencies.png", "PNG")
     

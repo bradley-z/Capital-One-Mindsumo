@@ -66,8 +66,9 @@ def recommend_post():
 
 @app.route('/visualization', methods=['GET'])
 def visualization():
-    # return render_template('visualization.html')
-    return visualize_gpo(subs)
+    # visualize_gpo(subs)
+    return render_template('visualization.html')
+    # return 
 
     # return render_template('visualization.html', word_freqs=freqs, max_freq=max_freq)
 
