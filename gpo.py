@@ -1,6 +1,7 @@
 from mygpoclient import simple, public
 from bs4 import BeautifulSoup
 from datetime import datetime
+from nltk.tokenize import word_tokenize
 import requests
 import json
 import urllib
@@ -283,6 +284,6 @@ def visualize_gpo(subscriptions):
     descriptions = ""
     for subscription in subscriptions:
         descriptions = descriptions + subscription["description"] + " "
-    return descriptions
-
+    words = word_tokenize(descriptions)
+    return words
     

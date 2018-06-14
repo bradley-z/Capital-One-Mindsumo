@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, recommend_gpo
+from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, recommend_gpo, visualize_gpo
 
 app = Flask(__name__)
 # app.debug = True
@@ -60,13 +60,13 @@ def recommend():
 @app.route('/recommendations', methods=['POST', 'GET'])
 def recommend_post():
     if request.method == 'POST':
-        podcast, recommendations = recommend_gpo()
+        podcast, recommendations = recommend_gpo(subs)
         return render_template('recommendations.html', podcasts = podcast, \
                     recommendations = recommendations)
 
 @app.route('/visualization', methods=['GET'])
 def visualization():
-    return "Hi"
+    return visualize_gpo(subs)
 
 if __name__ == '__main__':
     app.run()
