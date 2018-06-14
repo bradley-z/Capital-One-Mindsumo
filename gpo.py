@@ -1,10 +1,7 @@
 from mygpoclient import simple, public
 from bs4 import BeautifulSoup
 from datetime import datetime
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-from collections import Counter
-import nltk
+from wordcloud import WordCloud
 import requests
 import json
 import urllib
@@ -293,17 +290,10 @@ def get_top():
 
 def visualize_gpo(subscriptions):
     descriptions = ""
-    # subscriptions = get_top()
-    nltk.download('punkt')
-    nltk.download('stopwords')
     for subscription in subscriptions:
         descriptions = descriptions + subscription["title"] + " "
         descriptions = descriptions + subscription["description"] + " "
-    words = word_tokenize(descriptions)
-    stop_words = set(stopwords.words("english"))
-    words = [ word for word in words if len(word) > 3 and word not in stop_words ]
-    frequencies = Counter(words)
-    freqs_json = [{'text': word, 'size': count} for word, count in frequencies.items()]
-    return json.dumps(freqs_json)
-    # return freqs_json, max_freq
+    wc = WordCloud().generate(descriptions)
+    image = wc.to_image()
+    image.save("data/word_freqs.png", "PNG")
     

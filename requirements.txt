@@ -7,4 +7,4 @@ mygpoclient==1.8
 Werkzeug==0.14.1
 requests==2.18.4
 beautifulsoup4==4.6.0
-nltk==3.3
+wordcloud==1.4.1
