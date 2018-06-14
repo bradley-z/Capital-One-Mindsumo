@@ -64,5 +64,9 @@ def recommend_post():
         return render_template('recommendations.html', podcasts = podcast, \
                     recommendations = recommendations)
 
+@app.route('/visualization', methods=['GET'])
+def visualization():
+    return "Hi"
+
 if __name__ == '__main__':
     app.run()

@@ -279,3 +279,7 @@ def recommend_gpo():
         final_recs.append((recs[i], similarities[i]))
 
     return [podcast], final_recs
+
+def visualize():
+    subscriptions = subscriptions_gpo()
+    
