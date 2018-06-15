@@ -7,6 +7,8 @@ import json
 import urllib
 import random
 
+import time
+
 username = 'bradleyzhou'
 password = '3qPB7~e>VR`/p?&S'
 deviceid = 'legacy'
@@ -302,11 +304,9 @@ def visualize_gpo(subscriptions):
 def search_in_genre_gpo(genre, search_term):
     genre_searches = smartsearch_gpo(genre, 0)
     term_searches = search_gpo(search_term)
-    ts_titles = []
-    for podcast in term_searches:
-        ts_titles.append(podcast.title)
+    term_searches = [ vars(podcast) for podcast in term_searches ]
     matches = []
     for podcast in genre_searches:
-        if podcast["title"] in ts_titles:
+        if podcast in term_searches:
             matches.append(podcast)
     return matches
