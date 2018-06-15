@@ -298,4 +298,15 @@ def visualize_gpo(subscriptions):
     wc = WordCloud(width=1200, height=800).generate(descriptions)
     image = wc.to_image()
     image.save("static/frequencies.png", "PNG")
-    
+
+def search_in_genre_gpo(genre, search_term):
+    genre_searches = smartsearch_gpo(genre, 0)
+    term_searches = search_gpo(search_term)
+    ts_titles = []
+    for podcast in term_searches:
+        ts_titles.append(podcast.title)
+    matches = []
+    for podcast in genre_searches:
+        if podcast["title"] in ts_titles:
+            matches.append(podcast)
+    return matches

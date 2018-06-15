@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
-from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, recommend_gpo, visualize_gpo
+from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, \
+                recommend_gpo, visualize_gpo, search_in_genre_gpo
 
 app = Flask(__name__)
 app.debug = True
@@ -40,16 +41,20 @@ def smartsearch_post():
     if request.method == 'POST':
         genre = request.form['genre']
         count = request.form['count']
-        searches_post = smartsearch_gpo(genre, int(count))
-        return render_template('smartsearch.html', searches = searches_post)
+        smartsearches = smartsearch_gpo(genre, int(count))
+        return render_template('smartsearch.html', searches = smartsearches)
 
-@app.route('/search_in_genre')
+@app.route('/search-in-genre')
 def search_in_genre():
     return render_template('search_in_genre.html', searches = searches_in_genre)
 
-@app.route('/search_in_genre', methods = ['POST', 'GET'])
+@app.route('/search-in-genre', methods = ['POST', 'GET'])
 def search_in_genre_post():
-    return 42
+    if request.method == 'POST':
+        genre = request.form['genre']
+        search_term = request.form['term']
+        searches_in_genre = search_in_genre_gpo(genre, search_term)
+        return render_template('search_in_genre.html', searches = searches_in_genre)
 
 
 @app.route('/smartsort')
