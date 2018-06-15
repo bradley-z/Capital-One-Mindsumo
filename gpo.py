@@ -7,7 +7,6 @@ import json
 import urllib
 import random
 
-import time
 
 username = 'bradleyzhou'
 password = '3qPB7~e>VR`/p?&S'
@@ -284,14 +283,17 @@ def recommend_gpo(subscriptions):
         final_recs.append((recs[i], similarities[i]))
 
     return [podcast], final_recs
-
-# returns top 100 podcasts in dictionary form
+'''
+returns top 100 podcasts in dictionary form
+this can be used as an alternate set of data for functionalities such as data visualization, recommendations, or smart sort
+'''
 def get_top():
     client = public.PublicClient()
     tops = client.get_toplist(100)
     tops = [ vars(podcast) for podcast in tops ]
     return tops
 
+# generates png image of word frequencies of subscriptions
 def visualize_gpo(subscriptions):
     descriptions = ""
     for subscription in subscriptions:

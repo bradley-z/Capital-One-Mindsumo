@@ -8,26 +8,32 @@
     </div>
     <button type="submit" class="btn btn-default">Calculate</button>
   </form>
-  <table class="table table-bordered table-hover">
-  <thead">
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Episodes released</th>
-      <th scope="col">Ongoing</th>
-      <th scope="col">Days per episode</th>
-      <th scope="col">Days to catch up</th>
-    </tr>
-  </thead>
-  {% for podcast in podcasts %}
-  <tbody>
-    <tr>
-      <th scope="row">{{podcast.title}}</th>
-      <td>{{podcast.episode_count}}</td>
-      <td>{{podcast.continuing}}</td>
-      <td>{{1 / podcast.releases_per_day}}</td>
-      <th scope="row">{{podcast.days_to_finish}}</th>
-    </tr>
-  </tbody>
-  {% endfor %}
-</table>
+  <br><br><br>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      This table displays the amount of time it would take you to catch up to a podcast if you only listen to one podcast at a time
+    </div>
+    <table class="table table-bordered table-hover">
+    <thead">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Episodes released</th>
+        <th scope="col">Ongoing</th>
+        <th scope="col">Days per episode</th>
+        <th scope="col">Days to catch up</th>
+      </tr>
+    </thead>
+    {% for podcast in podcasts %}
+    <tbody>
+      <tr>
+        <th scope="row">{{podcast.title}}</th>
+        <td>{{podcast.episode_count}}</td>
+        <td>{{podcast.continuing}}</td>
+        <td>{{1 / podcast.releases_per_day}}</td>
+        <th scope="row">{{podcast.days_to_finish}}</th>
+      </tr>
+    </tbody>
+    {% endfor %}
+    </table>
+  </div>
 {% endblock %}

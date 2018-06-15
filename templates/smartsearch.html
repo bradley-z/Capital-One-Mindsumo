@@ -2,16 +2,20 @@
 
 {% block body %}
   <h1>Search by Genre</h1>
-  <form class="navbar-form navbar-left" role="search" method="POST">
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Genre" name="genre">
-    </div>
-    <div class="form-group">
-      <input type="number" class="form-control" min="0" value=0 name="count">
-    </div>
-    <button type="submit" class="btn btn-default">Search</button>
-  </form><br>
-  <br><br>
+  <!-- <h6>Type how many of the most popular results you would like to see (0 to see all results)</h6> -->
+  <div class="panel panel-default">
+    <div class="panel-body">Type how many of the most popular results you would like to see (0 to see all results)</div>
+    <form class="navbar-form navbar-left" role="search" method="POST">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Genre" name="genre">
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control" min="0" value=0 name="count">
+      </div>
+      <button type="submit" class="btn btn-default">Search</button>
+    </form>
+  </div>
+  <br><br><br>
   <div class="list-group">
     {% for podcast in searches %}
       <a href={{podcast.website}} target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">

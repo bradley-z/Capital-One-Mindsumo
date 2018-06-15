@@ -3,7 +3,7 @@ from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, \
                 recommend_gpo, visualize_gpo, search_in_genre_gpo
 
 app = Flask(__name__)
-app.debug = True
+# app.debug = True
 
 subs = subscriptions_gpo()
 searches = []
@@ -65,7 +65,7 @@ def smartsort():
 def smartsort_post():
     if request.method == 'POST':
         count = request.form['count']
-        podcasts = smartsort_gpo(int(count))
+        smart_sorted = smartsort_gpo(int(count))
         return render_template('smartsort.html', podcasts = smart_sorted)
 
 @app.route('/recommendations')
