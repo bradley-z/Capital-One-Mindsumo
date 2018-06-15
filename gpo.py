@@ -48,6 +48,8 @@ def smartsearch_gpo(search_tag, count):
     '''
     search_results = client.get_podcasts_of_a_tag(search_tag, 100)
     search_results = [ vars(podcast) for podcast in search_results ]
+    if count == 0:
+        return search_results
     search_results = sorted(search_results, key=lambda k: k['subscribers'], reverse=True)
     search_results = search_results[0:count]
 

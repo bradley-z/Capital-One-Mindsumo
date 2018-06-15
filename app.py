@@ -7,8 +7,10 @@ app = Flask(__name__)
 subs = subscriptions_gpo()
 searches = []
 smartsearches = []
-podcasts = []
+smart_sorted = []
 podcast, recommendations = [], []
+searches_in_genre = []
+
 
 @app.route('/')
 def index():
@@ -41,6 +43,15 @@ def smartsearch_post():
         searches_post = smartsearch_gpo(genre, int(count))
         return render_template('smartsearch.html', searches = searches_post)
 
+@app.route('/search_in_genre')
+def search_in_genre():
+    return render_template('search_in_genre.html', searches = searches_in_genre)
+
+@app.route('/search_in_genre', methods = ['POST', 'GET'])
+def search_in_genre_post():
+    return 42
+
+
 @app.route('/smartsort')
 def smartsort():
     return render_template('smartsort.html')
@@ -50,7 +61,7 @@ def smartsort_post():
     if request.method == 'POST':
         count = request.form['count']
         podcasts = smartsort_gpo(int(count))
-        return render_template('smartsort.html', podcasts = podcasts)
+        return render_template('smartsort.html', podcasts = smart_sorted)
 
 @app.route('/recommendations')
 def recommend():
@@ -68,9 +79,6 @@ def recommend_post():
 def visualization():
     # visualize_gpo(subs)
     return render_template('visualization.html')
-    # return 
-
-    # return render_template('visualization.html', word_freqs=freqs, max_freq=max_freq)
 
 if __name__ == '__main__':
     app.run(threaded=True)
