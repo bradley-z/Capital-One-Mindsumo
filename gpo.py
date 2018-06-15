@@ -60,6 +60,7 @@ def smartsearch_gpo(search_tag, count):
 #                       Helper functions for smart sort                         #
 # ----------------------------------------------------------------------------- #
 
+# reformats date for easier usage
 def normalize_date(date):
     date = date.replace("Jan.", "01")
     date = date.replace("Feb.", "02")
@@ -79,6 +80,7 @@ def normalize_date(date):
 def days_difference(d1, d2):
     return abs((d1 - d2).days)
 
+# given list of dates, calculate average difference in days
 def calculate_average_days(dates):
     count = 0
     total_days = 0
@@ -88,6 +90,7 @@ def calculate_average_days(dates):
 
     return total_days * 1.0 / count
 
+# calculates how long it takes for each podcast to release a new episode
 def get_average_release_time_per_subscription():
     subscriptions = subscriptions_gpo()
 
@@ -125,6 +128,7 @@ def get_average_release_time_per_subscription():
 
     return averages
 
+# takes the information about subs and turns it int JSON format
 def create_json():
     client = public.PublicClient()
     subscriptions = subscriptions_gpo()
@@ -282,6 +286,7 @@ def recommend_gpo(subscriptions):
     for i in range(len(recs)):
         final_recs.append((recs[i], similarities[i]))
 
+    # returns single podcast as a list to be easier for flask
     return [podcast], final_recs
 '''
 returns top 100 podcasts in dictionary form
