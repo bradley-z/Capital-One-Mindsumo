@@ -21,7 +21,10 @@ def subscriptions_gpo(username='bradleyzhou', password='3qPB7~e>VR`/p?&S', devic
     client = simple.SimpleClient(username, password)
     public_client = public.PublicClient()
 
-    subscription_urls = client.get_subscriptions(deviceid)
+    try:
+        subscription_urls = client.get_subscriptions(deviceid)
+    except:
+        return None
     subscription_podcast_objects = []
     for url in subscription_urls:
         podcast = public_client.get_podcast_data(url)
