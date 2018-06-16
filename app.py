@@ -5,6 +5,7 @@ import os
 import copy
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 app.debug = True
 
 username = 'bradleyzhou'
