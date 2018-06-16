@@ -19,6 +19,12 @@ searches_in_genre = []
 
 @app.route('/')
 def index():
+    global username, password, deviceid, subs
+    username = 'bradleyzhou'
+    password = '3qPB7~e>VR`/p?&S'
+    deviceid = 'legacy'
+
+    subs = subscriptions_gpo(username, password, deviceid)
     return render_template('home.html')
 
 @app.route('/search')
