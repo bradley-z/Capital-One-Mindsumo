@@ -55,7 +55,7 @@ def search_post():
 @app.route('/subscriptions')
 def subscriptions():
     if 'user' in session:
-        info = session['user'].split['|']
+        info = session['user'].split('|')
         username = info[0]
         password = info[1]
         deviceid = info[2]
