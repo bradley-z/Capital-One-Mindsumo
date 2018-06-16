@@ -92,10 +92,10 @@ def visualization():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
+        global username, password, deviceid, subs
         username = request.form['username']
         password = request.form['password']
         deviceid = request.form['deviceid']
-        global subs
         subs = subscriptions_gpo(username, password, deviceid)
 
     return render_template('login.html')
