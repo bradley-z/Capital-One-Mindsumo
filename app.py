@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, \
                 recommend_gpo, visualize_gpo, search_in_genre_gpo
+import os
 
 app = Flask(__name__)
-# app.debug = True
+app.secret_key = os.urandom(24)
+app.debug = True
 
 username = 'bradleyzhou'
 password = '3qPB7~e>VR`/p?&S'
@@ -19,7 +21,20 @@ searches_in_genre = []
 
 @app.route('/')
 def index():
+    session['user'] = 'Bradley'
     return render_template('home.html')
+
+@app.route('/getsession')
+def getsession():
+    if 'user' in session:
+        return session['user']
+
+    return 'Not logged in!'
+
+@app.route('/dropsession')
+def dropsession():
+    session.pop('user', None)
+    return 'Dropped!'
 
 @app.route('/search')
 def search():
