@@ -28,7 +28,7 @@ The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.
 #### Smart Sort  
 * Assumes that the podcast you should listen to first is the one that would take you the least amount of times to catch up to. First calculated average episode release interval for each subscription and used that data in conjunction with episodes released and an input of how many podcasts one will listen to per day to calculate the time to catch up to each subscription and saves the data in a JSON. Generates a table and then sorts by days to catch up, ascending.
 
-###Extra functions
+### Extra functions
 #### Recommendations
 * Randomly selects a podcast in subscriptions and returns three recommendations and how similar they are to the first podcast. There is an API for recommendations called "suggestions," but it seemed to be broken; no suggestions were being given. However, another website (found [here](http://www.thesauropod.us/)) offers suggestions. An API does not exist, so I utilized a series of clever GET requests to extract the recommendations. Implemented using requests and Beautiful Soup.
 
@@ -41,6 +41,6 @@ The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.
 ## Challenges
 * Some image urls defined in the podcast object are broken
 * Subscriber counts seem to be perpetually frozen; unlike in the API example, every podcast had the same value for subscribers as subscribers last week. Naturally, this makes writing a function to display the podcasts that have gained the most subscribers in a given period of time relatively redundant in this context.
-* Suggestions in API broken
+* Suggestions from API broken
 * For some reason, a bunch of podcasts just randomly stopped updating around the same time (mid-February 2018). This skews the episode count data slightly, but the differential should be minimal due to its relative recency.
 * Certain data, such as episode count, isn't available through the API and as a result, I had to access it some other way, such as through GET requests.
