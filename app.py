@@ -35,7 +35,7 @@ def getsession():
     return 'No'
 
 @app.route('/dropsession')
-def dropsession()
+def dropsession():
     session.pop('user', None)
     return 'Drop'
 
