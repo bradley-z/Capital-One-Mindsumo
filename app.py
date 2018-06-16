@@ -5,7 +5,11 @@ from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, \
 app = Flask(__name__)
 # app.debug = True
 
-subs = subscriptions_gpo()
+username = 'bradleyzhou'
+password = '3qPB7~e>VR`/p?&S'
+deviceid = 'legacy'
+
+subs = subscriptions_gpo(username, password, deviceid)
 searches = []
 smartsearches = []
 smart_sorted = []
@@ -84,6 +88,17 @@ def recommend_post():
 def visualization():
     # visualize_gpo(subs)
     return render_template('visualization.html')
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        deviceid = request.form['deviceid']
+        global subs
+        subs = subscriptions_gpo(username, password, deviceid)
+
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(threaded=True)

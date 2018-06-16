@@ -8,10 +8,6 @@ import urllib
 import random
 
 
-username = 'bradleyzhou'
-password = '3qPB7~e>VR`/p?&S'
-deviceid = 'legacy'
-
 REC_MAX = 3
 
 
@@ -21,7 +17,7 @@ def search_gpo(search_term):
     search_results = client.search_podcasts(search_term)
     return search_results
 
-def subscriptions_gpo():
+def subscriptions_gpo(username='bradleyzhou', password='3qPB7~e>VR`/p?&S', deviceid='legacy'):
     client = simple.SimpleClient(username, password)
     public_client = public.PublicClient()
 

@@ -12,31 +12,34 @@ The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.
 * [thesauropod](http://www.thesauropod.us/) to recommend podcasts
 * [Word Cloud](https://github.com/amueller/word_cloud) to generate frequency visualizations
 
-## Overview of each function
-*Note: Clicking each podcast will redirect you to the podcast website. Also, all functions were written with the assumption that a test account (that I created) subscribed to the top 25 podcasts was used. The data, however, is dynamically generated and by changing the username, password, and deviceid variables in gpo.py, one should see that the data outputed reflects the subscriptions of the new account*
-### Required functions
+## Overview of each feature
+*Note: Clicking each podcast will redirect you to the podcast website. By default, subscriptions and recommendations are based off of a test account I created that is subscribed to the top 25 podcasts. One can login with his own gPodder credentials and see his own subscriptions and recommendations.*
+### Required features
 #### Search
 * Input a search term and displays all results. Implemented using mygpoclient library.
 
 #### Subscriptions
-* Displays subscriptions. Implemented using mygpoclient library.
-* *Note: The subscriptions don't intentionally display sorted by subscription count; the fact that it shows as such in the example is a consequence of sequentially subscribing to the top 25.*
+* Displays subscriptions. Can login to view a different user's subscriptions. Implemented using mygpoclient library.
 
 #### Smart Search (Search by Genre)
-* Input a genre and displays all podcasts that fall in that genre. Can input a number *n* to view the top *n* results sorted. If *n* is 0, then all results will be displayed, unsorted. Implemented using mygpoclient library.
+* Input a genre and displays all podcasts that fall in that genre. Can input a number *n* to view the top *n* results, sorted. If *n* is 0, then all results will be displayed, unsorted. Implemented using mygpoclient library.
 
 #### Smart Sort  
-* Assumes that the podcast you should listen to first is the one that would take you the least amount of times to catch up to. First calculated average episode release interval for each subscription and used that data in conjunction with episodes released and an input of how many podcasts one will listen to per day to calculate the time to catch up to each subscription and saves the data in a JSON. Generates a table and then sorts by days to catch up, ascending.
+* Assumes that the podcast you should listen to first is the one that would take you the least amount of times to catch up to. First calculated average episode release interval for each subscription and used that data in conjunction with episodes released and an input of how many podcasts one will listen to per day to calculate the time to catch up to each subscription and saves the data in a JSON. Generates a table and then sorts by days to catch up, ascending. Assumes the user is subscribed to top 25 podcasts, but can be ran again to generate JSON for another user.
 
-### Extra functions
+### Extra features
+#### Login
+* Login using gPodder credentials to view your own subscriptions and get personalized recommendations. Upon successful login, subsequent visits to /subscriptions and /recommendations will now use subscription data from the new account until another account is logged in.
+
 #### Recommendations
 * Randomly selects a podcast in subscriptions and returns three recommendations and how similar they are to the first podcast. There is an API for recommendations called "suggestions," but it seemed to be broken; no suggestions were being given. However, another website (found [here](http://www.thesauropod.us/)) offers suggestions. An API does not exist, so I utilized a series of clever GET requests to extract the recommendations. Implemented using requests and Beautiful Soup.
+* *Note: Due to the nature of the implementation, recommendations can take several seconds to load.*
 
 #### Smart Search Extended (Search Within Genre)
 * Input a search term and a genre and returns only podcasts that fit both criteria. Implemented using mygpoclient library.
 
 #### Data Visualization
-* Aggregated all the words from subscription titles and descriptions and created a frequency analysis of the data. Implemented using an API found [here](https://github.com/amueller/word_cloud).
+* Aggregated all the words from subscription titles and descriptions and created a frequency analysis of the data. Implemented using an API found [here](https://github.com/amueller/word_cloud). Data is generated from the top 25 podcast list statically, but can be ran again to generate an analysis for subscriptions, too.
 
 ## Challenges
 * Some image urls defined in the podcast object are broken
