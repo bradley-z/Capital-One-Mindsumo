@@ -19,6 +19,7 @@ smart_sorted = []
 podcast, recommendations = [], []
 searches_in_genre = []
 
+# logged_in = False
 
 @app.route('/')
 def index():
@@ -53,6 +54,14 @@ def search_post():
 
 @app.route('/subscriptions')
 def subscriptions():
+    if 'user' in session:
+        info = session['user'].split['|']
+        username = info[0]
+        password = info[1]
+        deviceid = info[2]
+        global subs
+        subs = subscriptions_gpo(username, password, deviceid)
+
     return render_template('subscriptions.html', subscriptions = subs)
 
 @app.route('/smartsearch')
@@ -118,22 +127,20 @@ def login():
         id_temp = request.form['deviceid']
         subs_temp = subscriptions_gpo(un_temp, pw_temp, id_temp)
         if subs_temp is not None:
-            session['user'] = un_temp
-            username = un_temp
-            password = pw_temp
-            deviceid = id_temp
-            subs = copy.deepcopy(subs_temp)
+            session['user'] = un_temp + "|" + pw_temp + "|" + id_temp
+        # add a redirect here
 
     return render_template('login.html')
 
 @app.before_request
 def before_request():
-    global username, password, deviceid, subs
-    username = 'bradleyzhou'
-    password = '3qPB7~e>VR`/p?&S'
-    deviceid = 'legacy'
+    pass
+    # global username, password, deviceid, subs
+    # username = 'bradleyzhou'
+    # password = '3qPB7~e>VR`/p?&S'
+    # deviceid = 'legacy'
 
-    subs = subscriptions_gpo(username, password, deviceid)
+    # subs = subscriptions_gpo(username, password, deviceid)
 
 if __name__ == '__main__':
     app.run(threaded=False)
