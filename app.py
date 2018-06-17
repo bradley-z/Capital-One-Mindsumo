@@ -131,11 +131,12 @@ def visualization():
 def login():
     if request.method == 'POST':
         session.pop('user', None)
-        global username, password, deviceid, subs
+        global username, password, deviceid, subs, changed
         un_temp = request.form['username']
         pw_temp = request.form['password']
         id_temp = request.form['deviceid']
         subs_temp = subscriptions_gpo(un_temp, pw_temp, id_temp)
+        changed = False
         if subs_temp is not None:
             session['user'] = un_temp + " |delim| " + pw_temp + " |delim| " + id_temp
         # add a redirect here
@@ -145,13 +146,13 @@ def login():
 
 @app.before_request
 def before_request():
-    pass
-    # global username, password, deviceid, subs
-    # username = 'bradleyzhou'
-    # password = '3qPB7~e>VR`/p?&S'
-    # deviceid = 'legacy'
+    global username, password, deviceid, subs, changed
+    username = 'bradleyzhou'
+    password = '3qPB7~e>VR`/p?&S'
+    deviceid = 'legacy'
+    changed = False
 
-    # subs = subscriptions_gpo(username, password, deviceid)
+    subs = subscriptions_gpo(username, password, deviceid)
 
 if __name__ == '__main__':
     app.run(threaded=False)
