@@ -74,7 +74,7 @@ def subscriptions():
             changed = True
     else:
         if not changed:
-            global subs
+            global subs, default_subs
             subs = copy.deepcopy(default_subs)
             change = True
 
@@ -137,7 +137,7 @@ def visualization():
 def login():
     if request.method == 'POST':
         session.pop('user', None)
-        global username, password, deviceid, subs, changed
+        global username, password, deviceid, subs, changed, default_subs
         un_temp = request.form['username']
         pw_temp = request.form['password']
         id_temp = request.form['deviceid']
@@ -154,7 +154,7 @@ def login():
 
 @app.before_request
 def before_request():
-    global username, password, deviceid, subs, changed
+    global username, password, deviceid, subs, changed, default_subs
     username = 'bradleyzhou'
     password = '3qPB7~e>VR`/p?&S'
     deviceid = 'legacy'
