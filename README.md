@@ -25,7 +25,7 @@ The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.
 * Input a genre and displays all podcasts that fall in that genre. Can input a number *n* to view the top *n* results, sorted. If *n* is 0, then all results will be displayed, unsorted. Implemented using mygpoclient library.
 
 #### Smart Sort  
-* Assumes that the podcast you should listen to first is the one that would take you the least amount of times to catch up to. First calculated average episode release interval for each subscription and used that data in conjunction with episodes released and an input of how many podcasts one will listen to per day to calculate the time to catch up to each subscription and saves the data in a JSON. Generates a table and then sorts by days to catch up, ascending. Assumes the user is subscribed to top 25 podcasts, but can be ran again to generate JSON for another user.
+* Assumes that the podcast you should listen to first is the one that would take you the least amount of times to catch up to. First calculated average episode release interval for each subscription and used that data in conjunction with episodes released and an input of how many podcasts one will listen to per day to calculate the time to catch up to each subscription and saves the data in a JSON. Generates a table and then sorts by days to catch up, ascending. Assumes the user is subscribed to top 25 podcasts, but function can be ran again to generate JSON for another user.
 
 ### Extra features
 #### Login
@@ -39,7 +39,7 @@ The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.
 * Input a search term and a genre and returns only podcasts that fit both criteria. Implemented using mygpoclient library.
 
 #### Data Visualization
-* Aggregated all the words from subscription titles and descriptions and created a frequency analysis of the data. Implemented using an API found [here](https://github.com/amueller/word_cloud). Data is generated from the top 25 podcast list statically, but can be ran again to generate an analysis for subscriptions, too.
+* Aggregated all the words from subscription titles and descriptions and created a frequency analysis of the data. Implemented using an API found [here](https://github.com/amueller/word_cloud). Data is generated from the top 25 podcast list, but can be ran again to generate an analysis for subscriptions or another set of podcasts, too.
 
 ## Challenges
 * Some image urls defined in the podcast object are broken
