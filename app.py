@@ -152,15 +152,5 @@ def login():
 
     return render_template('login.html')
 
-@app.before_request
-def before_request():
-    global username, password, deviceid, subs, changed, default_subs
-    username = 'bradleyzhou'
-    password = '3qPB7~e>VR`/p?&S'
-    deviceid = 'legacy'
-    # changed = False
-
-    subs = copy.deepcopy(default_subs)
-
 if __name__ == '__main__':
     app.run(threaded=False)
