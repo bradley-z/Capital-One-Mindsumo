@@ -14,6 +14,7 @@ password = '3qPB7~e>VR`/p?&S'
 deviceid = 'legacy'
 
 subs = subscriptions_gpo(username, password, deviceid)
+default_subs = copy.deepcopy(subs)
 searches = []
 smartsearches = []
 smart_sorted = []
@@ -45,7 +46,7 @@ def dropsession():
     password = '3qPB7~e>VR`/p?&S'
     deviceid = 'legacy'
 
-    subs = subscriptions_gpo(username, password, deviceid)
+    subs = copy.deepcopy(default_subs) 
     return 'Drop'
 
 @app.route('/search')
@@ -71,6 +72,11 @@ def subscriptions():
             global subs
             subs = subscriptions_gpo(username, password, deviceid)
             changed = True
+    else:
+        if not changed:
+            global subs
+            subs = copy.deepcopy(default_subs)
+            change = True
 
     return render_template('subscriptions.html', subscriptions = subs)
 
@@ -152,7 +158,7 @@ def before_request():
     deviceid = 'legacy'
     changed = False
 
-    subs = subscriptions_gpo(username, password, deviceid)
+    subs = copy.deepcopy(default_subs)
 
 if __name__ == '__main__':
     app.run(threaded=False)
