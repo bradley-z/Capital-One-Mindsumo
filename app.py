@@ -22,6 +22,7 @@ podcast, recommendations = [], []
 searches_in_genre = []
 
 changed = False
+changed_recs = False
 
 @app.route('/')
 def index():
@@ -62,12 +63,12 @@ def search_post():
 
 @app.route('/subscriptions')
 def subscriptions():
+    global changed
     if 'user' in session:
         info = session['user'].split(' |delim| ')
         username = info[0]
         password = info[1]
         deviceid = info[2]
-        global changed
         if not changed:
             global subs
             subs = subscriptions_gpo(username, password, deviceid)
@@ -124,7 +125,20 @@ def recommend():
 @app.route('/recommendations', methods=['POST', 'GET'])
 def recommend_post():
     if request.method == 'POST':
-        global subs
+        global changed_recs, subs
+        if 'user' in session:
+            info = session['user'].split(' |delim| ')
+            username = info[0]
+            password = info[1]
+            deviceid = info[2]
+            if not changed_recs:
+                subs = subscriptions_gpo(username, password, deviceid)
+                changed_recs = True
+        else:
+            if not changed_recs:
+                default_subs
+                subs = copy.deepcopy(default_subs)
+                changed_recs = True
         podcast, recommendations = recommend_gpo(subs)
         return render_template('recommendations.html', podcasts = podcast, \
                     recommendations = recommendations)
@@ -144,6 +158,7 @@ def login():
         id_temp = request.form['deviceid']
         subs_temp = subscriptions_gpo(un_temp, pw_temp, id_temp)
         changed = False
+        changed_recs = False
         if subs_temp is not None:
             session['user'] = un_temp + " |delim| " + pw_temp + " |delim| " + id_temp
             subs = copy.deepcopy(subs_temp)
