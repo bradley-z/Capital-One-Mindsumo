@@ -13,7 +13,7 @@ username = 'bradleyzhou'
 password = '3qPB7~e>VR`/p?&S'
 deviceid = 'legacy'
 
-subs = subscriptions_gpo(username, password, deviceid)
+subs = copy.deepcopy(subscriptions_gpo(username, password, deviceid))
 default_subs = copy.deepcopy(subs)
 searches = []
 smartsearches = []
@@ -71,7 +71,7 @@ def subscriptions():
         deviceid = info[2]
         if not changed:
             global subs
-            subs = subscriptions_gpo(username, password, deviceid)
+            subs = copy.deepcopy(subscriptions_gpo(username, password, deviceid))
             changed = True
     else:
         if not changed:
@@ -132,7 +132,7 @@ def recommend_post():
             password = info[1]
             deviceid = info[2]
             if not changed_recs:
-                subs = subscriptions_gpo(username, password, deviceid)
+                subs = copy.deepcopy(subscriptions_gpo(username, password, deviceid))
                 changed_recs = True
         else:
             if not changed_recs:
