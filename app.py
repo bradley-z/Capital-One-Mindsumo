@@ -21,7 +21,6 @@ smart_sorted = []
 podcast, recommendations = [], []
 searches_in_genre = []
 
-changed = False
 changed_recs = False
 
 @app.route('/')
@@ -63,21 +62,16 @@ def search_post():
 
 @app.route('/subscriptions')
 def subscriptions():
-    global changed
     if 'user' in session:
         info = session['user'].split(' |delim| ')
         username = info[0]
         password = info[1]
         deviceid = info[2]
-        if not changed:
-            global subs
-            subs = copy.deepcopy(subscriptions_gpo(username, password, deviceid))
-            changed = True
+        global subs
+        subs = copy.deepcopy(subscriptions_gpo(username, password, deviceid))
     else:
-        if not changed:
-            global subs, default_subs
-            subs = copy.deepcopy(default_subs)
-            changed = True
+        global subs, default_subs
+        subs = copy.deepcopy(default_subs)
 
     return render_template('subscriptions.html', subscriptions = subs)
 
@@ -152,12 +146,11 @@ def visualization():
 def login():
     if request.method == 'POST':
         session.pop('user', None)
-        global username, password, deviceid, subs, changed, default_subs
+        global username, password, deviceid, subs, default_subs
         un_temp = request.form['username']
         pw_temp = request.form['password']
         id_temp = request.form['deviceid']
         subs_temp = subscriptions_gpo(un_temp, pw_temp, id_temp)
-        changed = False
         changed_recs = False
         if subs_temp is not None:
             session['user'] = un_temp + " |delim| " + pw_temp + " |delim| " + id_temp
