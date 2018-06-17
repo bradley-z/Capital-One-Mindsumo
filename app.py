@@ -73,10 +73,9 @@ def subscriptions():
             subs = subscriptions_gpo(username, password, deviceid)
             changed = True
     else:
-        if not changed:
-            global subs, default_subs
-            subs = copy.deepcopy(default_subs)
-            change = True
+        global subs, default_subs
+        subs = copy.deepcopy(default_subs)
+        changed = True
 
     return render_template('subscriptions.html', subscriptions = subs)
 
@@ -158,7 +157,7 @@ def before_request():
     username = 'bradleyzhou'
     password = '3qPB7~e>VR`/p?&S'
     deviceid = 'legacy'
-    changed = False
+    # changed = False
 
     subs = copy.deepcopy(default_subs)
 
