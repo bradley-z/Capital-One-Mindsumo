@@ -29,7 +29,7 @@ The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.
 
 ### Extra features
 #### Login
-* Login using gPodder credentials to view your own subscriptions and get personalized recommendations. Upon successful login, subsequent visits to /subscriptions and /recommendations will now use subscription data from the new account until another account is logged in.
+* Login using gPodder credentials to view your own subscriptions and get personalized recommendations. Upon successful login, subsequent visits to /subscriptions and /recommendations will now use subscription data from the new account until another account is logged in. Logging out will clear the cookie. Implemented using Flask sessions.
 
 #### Recommendations
 * Randomly selects a podcast in subscriptions and returns three recommendations and how similar they are to the first podcast. There is an API for recommendations called "suggestions," but it seemed to be broken; no suggestions were being given. However, another website (found [here](http://www.thesauropod.us/)) offers suggestions. An API does not exist, so I utilized a series of clever GET requests to extract the recommendations. Implemented using requests and Beautiful Soup.
