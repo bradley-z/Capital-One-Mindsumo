@@ -5,9 +5,8 @@ import os
 import copy
 
 app = Flask(__name__)
-# app.secret_key = os.urandom(24)
 app.secret_key = 'x\xa5\xd9\xdc\xd3km\xa9\xa8\xb4`\xa9*\x9b\xb4\xce\x06\xf0J\x1f\xb2\x8d\xe4\x03'
-app.debug = True
+# app.debug = True
 
 username = 'bradleyzhou'
 password = '3qPB7~e>VR`/p?&S'
@@ -23,29 +22,7 @@ searches_in_genre = []
 
 @app.route('/')
 def index():
-    # global username, password, deviceid, subs
-    # username = 'bradleyzhou'
-    # password = '3qPB7~e>VR`/p?&S'
-    # deviceid = 'legacy'
-    # subs = subscriptions_gpo(username, password, deviceid)
     return render_template('home.html')
-
-@app.route('/getsession')
-def getsession():
-    if 'user' in session:
-        return session['user']
-    return 'No'
-
-@app.route('/dropsession')
-def dropsession():
-    session.pop('user', None)
-    global username, password, deviceid, subs
-    username = 'bradleyzhou'
-    password = '3qPB7~e>VR`/p?&S'
-    deviceid = 'legacy'
-
-    subs = copy.deepcopy(default_subs) 
-    return 'Drop'
 
 @app.route('/search')
 def search():
@@ -60,15 +37,15 @@ def search_post():
 
 @app.route('/subscriptions')
 def subscriptions():
+    global subs
     if 'user' in session:
         info = session['user'].split(' |delim| ')
         username = info[0]
         password = info[1]
         deviceid = info[2]
-        global subs
         subs = copy.deepcopy(subscriptions_gpo(username, password, deviceid))
     else:
-        global subs, default_subs
+        global default_subs
         subs = copy.deepcopy(default_subs)
 
     return render_template('subscriptions.html', subscriptions = subs)
@@ -138,9 +115,10 @@ def visualization():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    global username, password, deviceid, subs
     if request.method == 'POST':
         session.pop('user', None)
-        global username, password, deviceid, subs, default_subs
+        global default_subs
         un_temp = request.form['username']
         pw_temp = request.form['password']
         id_temp = request.form['deviceid']
@@ -149,10 +127,19 @@ def login():
         if subs_temp is not None:
             session['user'] = un_temp + " |delim| " + pw_temp + " |delim| " + id_temp
             subs = copy.deepcopy(subs_temp)
-        # add a redirect here
-        return redirect('/')
+            return redirect('/')
 
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    username = 'bradleyzhou'
+    password = '3qPB7~e>VR`/p?&S'
+    deviceid = 'legacy'
+
+    subs = copy.deepcopy(default_subs)
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(threaded=False)
