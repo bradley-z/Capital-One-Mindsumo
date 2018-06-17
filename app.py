@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request, session, g
+from flask import Flask, render_template, request, session, redirect, g
 from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, \
                 recommend_gpo, visualize_gpo, search_in_genre_gpo
 import os
 import copy
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+# app.secret_key = os.urandom(24)
+app.secret_key = 'x\xa5\xd9\xdc\xd3km\xa9\xa8\xb4`\xa9*\x9b\xb4\xce\x06\xf0J\x1f\xb2\x8d\xe4\x03'
 app.debug = True
 
 username = 'bradleyzhou'
@@ -19,7 +20,7 @@ smart_sorted = []
 podcast, recommendations = [], []
 searches_in_genre = []
 
-# logged_in = False
+changed = False
 
 @app.route('/')
 def index():
@@ -39,6 +40,12 @@ def getsession():
 @app.route('/dropsession')
 def dropsession():
     session.pop('user', None)
+    global username, password, deviceid, subs
+    username = 'bradleyzhou'
+    password = '3qPB7~e>VR`/p?&S'
+    deviceid = 'legacy'
+
+    subs = subscriptions_gpo(username, password, deviceid)
     return 'Drop'
 
 @app.route('/search')
@@ -55,12 +62,15 @@ def search_post():
 @app.route('/subscriptions')
 def subscriptions():
     if 'user' in session:
-        info = session['user'].split('|')
+        info = session['user'].split(' |delim| ')
         username = info[0]
         password = info[1]
         deviceid = info[2]
-        global subs
-        subs = subscriptions_gpo(username, password, deviceid)
+        global changed
+        if not changed:
+            global subs
+            subs = subscriptions_gpo(username, password, deviceid)
+            changed = True
 
     return render_template('subscriptions.html', subscriptions = subs)
 
@@ -127,8 +137,9 @@ def login():
         id_temp = request.form['deviceid']
         subs_temp = subscriptions_gpo(un_temp, pw_temp, id_temp)
         if subs_temp is not None:
-            session['user'] = un_temp + "|" + pw_temp + "|" + id_temp
+            session['user'] = un_temp + " |delim| " + pw_temp + " |delim| " + id_temp
         # add a redirect here
+        return redirect('/')
 
     return render_template('login.html')
 
