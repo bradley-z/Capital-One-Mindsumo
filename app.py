@@ -124,6 +124,7 @@ def recommend():
 @app.route('/recommendations', methods=['POST', 'GET'])
 def recommend_post():
     if request.method == 'POST':
+        global subs
         podcast, recommendations = recommend_gpo(subs)
         return render_template('recommendations.html', podcasts = podcast, \
                     recommendations = recommendations)
