@@ -162,7 +162,6 @@ def login():
         if subs_temp is not None:
             session['user'] = un_temp + " |delim| " + pw_temp + " |delim| " + id_temp
             subs = copy.deepcopy(subs_temp)
-            changed = True
         # add a redirect here
         return redirect('/')
 
