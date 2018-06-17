@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, g
+from flask import Flask, render_template, request, session, redirect, flash
 from gpo import subscriptions_gpo, search_gpo, smartsearch_gpo, smartsort_gpo, \
                 recommend_gpo, visualize_gpo, search_in_genre_gpo
 import os
@@ -118,6 +118,7 @@ def login():
     global username, password, deviceid, subs
     if request.method == 'POST':
         session.pop('user', None)
+
         global default_subs
         un_temp = request.form['username']
         pw_temp = request.form['password']
@@ -127,7 +128,13 @@ def login():
         if subs_temp is not None:
             session['user'] = un_temp + " |delim| " + pw_temp + " |delim| " + id_temp
             subs = copy.deepcopy(subs_temp)
+            flash('Login success!')
             return redirect('/')
+        else:
+            subs = copy.deepcopy(default_subs)
+            flash('Error: account not found.')
+            return redirect('/')
+
 
     return render_template('login.html')
 
@@ -139,6 +146,7 @@ def logout():
     deviceid = 'legacy'
 
     subs = copy.deepcopy(default_subs)
+    flash('Logged out successfully.')
     return redirect('/')
 
 if __name__ == '__main__':
