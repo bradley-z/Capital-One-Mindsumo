@@ -13,7 +13,7 @@ The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.
 * [Word Cloud](https://github.com/amueller/word_cloud) to generate frequency visualizations
 
 ## Overview of each feature
-*Note: Clicking each podcast will redirect you to the podcast website. By default, subscriptions and recommendations are based off of a test account I created that is subscribed to the top 25 podcasts. One can login with his own gPodder credentials and see his own subscriptions and recommendations.*
+*Note: Clicking each podcast will redirect you to the podcast website. By default, subscriptions and recommendations are based off of a test account I created that is subscribed to the top 25 podcasts. You can login with your own gPodder credentials and see your own subscriptions and recommendations.*
 ### Required features
 #### Search
 * Input a search term and displays all results. Implemented using mygpoclient library.
@@ -29,7 +29,7 @@ The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.
 
 ### Extra features
 #### Login
-* Login using gPodder credentials to view your own subscriptions and get personalized recommendations. Upon successful login, subsequent visits to /subscriptions and /recommendations will now use subscription data from the new account until another account is logged in. Logging out will clear the cookie. Implemented using Flask sessions.
+* Login using gPodder credentials (username, password, and device id) to view your own subscriptions and get personalized recommendations. Upon successful login, subsequent visits to /subscriptions and /recommendations will now use subscription data from the new account until logout or another account is logged in; logging out will clear the cookie. Implemented using Flask sessions.
 
 #### Recommendations
 * Randomly selects a podcast in subscriptions and returns three recommendations and how similar they are to the first podcast. There is an API for recommendations called "suggestions," but it seemed to be broken; no suggestions were being given. However, another website (found [here](http://www.thesauropod.us/)) offers suggestions. An API does not exist, so I utilized a series of clever GET requests to extract the recommendations. Implemented using requests and Beautiful Soup.
@@ -44,6 +44,6 @@ The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.
 ## Challenges
 * Some image urls defined in the podcast object are broken
 * Subscriber counts seem to be perpetually frozen; unlike in the API example, every podcast had the same value for subscribers as subscribers last week. Naturally, this makes writing a function to display the podcasts that have gained the most subscribers in a given period of time relatively redundant in this context.
-* Suggestions from API broken
+* Suggestions from API are broken.
 * For some reason, a bunch of podcasts just randomly stopped updating around the same time (mid-February 2018). This skews the episode count data slightly, but the differential should be minimal due to its relative recency.
 * Certain data, such as episode count, isn't available through the API and as a result, I had to access it some other way, such as through GET requests.
