@@ -73,9 +73,10 @@ def subscriptions():
             subs = subscriptions_gpo(username, password, deviceid)
             changed = True
     else:
-        global subs, default_subs
-        subs = copy.deepcopy(default_subs)
-        changed = True
+        if not changed:
+            global subs, default_subs
+            subs = copy.deepcopy(default_subs)
+            changed = True
 
     return render_template('subscriptions.html', subscriptions = subs)
 
