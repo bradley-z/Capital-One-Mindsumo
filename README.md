@@ -1,5 +1,5 @@
-# Capital One Software Engineering Summit Summer 2018
-Submission for the second round of the Capital One Software Engineering Summit. The challenge can be found [here](https://www.mindsumo.com/contests/podcast-engine).
+# (Winner) Capital One Software Engineering Summit Summer 2018
+Submission for the second round of the Capital One Software Engineering Summit. The challenge can be found [here](https://www.mindsumo.com/contests/podcast-engine). This submission resulted in an acceptance to the program.
 
 The final project can be found [here](https://bradleyzhou-capital-one.herokuapp.com/).
 
