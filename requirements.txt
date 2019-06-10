@@ -2,10 +2,10 @@ Flask==1.0.2
 Flask-Session==0.3.1
 gunicorn==19.8.1
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2>=2.10.1
 MarkupSafe==1.0
 mygpoclient==1.8
 Werkzeug==0.14.1
-requests==2.18.4
+requests>=2.20.0
 beautifulsoup4==4.6.0
 wordcloud==1.4.1
